@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    /* Basic Options */
+    "target": "esnext",
+    "module": "esnext",
+    "lib": ["dom", "es5", "es6", "es7", "scripthost"],
+    "allowJs": true,
+    "jsx": "preserve",
+    "importHelpers": true,
+
+    /* Strict Type-Checking Options */
+    "strict": true,
+
+    /* Additional Checks */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Module Resolution Options */
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "typeRoots": ["./node_modules/@types"],
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "*": [
+        "./src/*"
+      ]
+    },
+
+    /* Plugins */
+    "plugins": [
+      {
+        "name": "tslint-language-service",
+        "configFile": "./config/tslint.json"
+      }
+    ]
+  },
+  "awesomeTypescriptLoaderOptions": {
+    "useCache": false,
+    "useBabel": true
+  }
+}

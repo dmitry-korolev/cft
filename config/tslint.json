@@ -1,0 +1,42 @@
+{
+  "rulesDirectory": [
+    "../node_modules/tslint-eslint-rules/dist/rules"
+  ],
+  "extends": [
+    "tslint:latest",
+    "tslint-config-standard",
+    "tslint-react"
+  ],
+  "exclude": [
+    "../node_modules/**/*"
+  ],
+  "rules": {
+    "object-literal-sort-keys": false,
+    "no-unused-variable": false,
+    "interface-name": false,
+    "max-line-length": [
+      false
+    ],
+    "no-submodule-imports": false,
+    "no-default-export": true,
+    "promise-function-async": true,
+    "member-access": [
+      true,
+      "no-public"
+    ],
+    "no-implicit-dependencies": false,
+    "jsx-curly-spacing": [
+      true,
+      "always"
+    ],
+    "jsx-boolean-value": [
+      true,
+      "never"
+    ],
+    "jsx-no-lambda": true,
+    "jsx-no-multiline-js": false,
+    "jsx-wrap-multiline": {
+      "severity": "warning"
+    }
+  }
+}

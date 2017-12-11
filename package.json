@@ -1,0 +1,82 @@
+{
+  "name": "korolev.dk",
+  "version": "0.0.1",
+  "description": "Personal website",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf build",
+    "prebuild": "npm run clean",
+    "build": "webpack --config config/webpack/client.js",
+    "build:prod": "cross-env NODE_ENV=production npm run build",
+    "postbuild": "webpack --config config/webpack/server.js",
+    "prestart": "npm run build",
+    "start": "cross-env DEBUG=k:* node build/server.js",
+    "start:debugger": "cross-env DEBUG=k:* node --inspect=50000 --debug-brk build/server.js",
+    "start:prod": "cross-env NODE_ENV=production npm start",
+    "test": "node_modules/.bin/karma start config/test/karma.conf.js",
+    "lint": "tslint \"src/**/**.ts*\" --fix --type-check --project tsconfig.json --exclude=\"src/**/*.test.ts*\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmitry-korolev/korolev.dk.git"
+  },
+  "author": "Dmitry Korolev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dmitry-korolev/korolev.dk/issues"
+  },
+  "homepage": "https://github.com/dmitry-korolev/korolev.dk#readme",
+  "dependencies": {
+    "debug": "^3.1.0",
+    "express": "^4.16.2",
+    "ramda": "^0.25.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-helmet": "^5.2.0",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "tslib": "^1.8.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.0.39",
+    "@types/node": "^8.0.57",
+    "@types/ramda": "^0.25.8",
+    "@types/react": "^16.0.28",
+    "@types/react-dom": "^16.0.3",
+    "@types/react-helmet": "^5.0.3",
+    "@types/react-router-dom": "^4.2.3",
+    "@types/redux-logger": "^3.0.5",
+    "@types/serve-favicon": "^2.2.30",
+    "@types/webpack": "^3.8.1",
+    "awesome-typescript-loader": "^3.4.1",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "file-loader": "^1.1.5",
+    "json-loader": "^0.5.7",
+    "react-hot-loader": "^3.1.3",
+    "rimraf": "^2.6.2",
+    "serve-favicon": "^2.4.5",
+    "tslint": "^5.8.0",
+    "tslint-config-standard": "^7.0.0",
+    "tslint-eslint-rules": "^4.1.1",
+    "tslint-language-service": "^0.9.7",
+    "tslint-react": "^3.2.0",
+    "typescript": "^2.6.2",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.10.0",
+    "webpack-dev-middleware": "^1.12.2",
+    "webpack-hot-middleware": "^2.21.0",
+    "webpack-manifest-plugin": "^1.3.2"
+  },
+  "babel": {
+    "ignore": "node_modules",
+    "presets": [
+      "react",
+      "env"
+    ]
+  }
+}
