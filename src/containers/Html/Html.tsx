@@ -1,6 +1,6 @@
 import React from 'react'
-import { Store } from 'redux'
 import Helmet from 'react-helmet'
+import { Store } from 'redux'
 
 export const Html = (props: HtmlProps) => {
   const { markup, store, manifest } = props
@@ -18,22 +18,19 @@ export const Html = (props: HtmlProps) => {
 
   return (
     <html>
-    <head>
-      { head.base.toComponent() }
-      { head.title.toComponent() }
-      { head.meta.toComponent() }
-      { head.link.toComponent() }
-      { head.script.toComponent() }
-      <link rel='shortcut icon' href='/favicon.ico'/>
-    </head>
-    <body>
-    <main
-      id='app'
-      dangerouslySetInnerHTML={ { __html: markup } }
-    />
-    { initialState }
-    { renderScripts }
-    </body>
+      <head>
+        { head.base.toComponent() }
+        { head.title.toComponent() }
+        { head.meta.toComponent() }
+        { head.link.toComponent() }
+        { head.script.toComponent() }
+        <link rel='shortcut icon' href='/favicon.ico' />
+      </head>
+      <body>
+        <main id='app' dangerouslySetInnerHTML={ { __html: markup } } />
+        { initialState }
+        { renderScripts }
+      </body>
     </html>
   )
 }

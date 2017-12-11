@@ -1,3 +1,4 @@
+/* tslint:disable no-var-requires */
 import express from 'express'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
@@ -25,16 +26,18 @@ if (process.env.NODE_ENV !== 'production') {
   const webpackConfig = require('../config/webpack/client-dev')
   const webpackCompiler = webpack(webpackConfig)
 
-  app.use(require('webpack-dev-middleware')(webpackCompiler, {
-    publicPath: webpackConfig.output.publicPath,
-    stats: { colors: true },
-    noInfo: true,
-    hot: true,
-    inline: true,
-    lazy: false,
-    historyApiFallback: true,
-    quiet: true
-  }))
+  app.use(
+    require('webpack-dev-middleware')(webpackCompiler, {
+      publicPath: webpackConfig.output.publicPath,
+      stats: { colors: true },
+      noInfo: true,
+      hot: true,
+      inline: true,
+      lazy: false,
+      historyApiFallback: true,
+      quiet: true
+    })
+  )
 
   app.use(require('webpack-hot-middleware')(webpackCompiler))
 }
@@ -45,11 +48,8 @@ app.use('/public', express.static(path.join(__dirname, 'public')))
 app.get('*', (req, res) => {
   const context: RouterContext = {}
   const markup = ReactDOMServer.renderToString(
-    <StaticRouter
-      location={req.url}
-      context={context}
-    >
-      <App/>
+    <StaticRouter location={ req.url } context={ context }>
+      <App />
     </StaticRouter>
   )
 
@@ -63,7 +63,7 @@ app.get('*', (req, res) => {
 
 function renderHTML (markup: string, store: any): string {
   const html = ReactDOMServer.renderToString(
-    <Html markup={ markup } manifest={ manifest } store={ store }/>
+    <Html markup={ markup } manifest={ manifest } store={ store } />
   )
 
   return `<!doctype html> ${html}`
