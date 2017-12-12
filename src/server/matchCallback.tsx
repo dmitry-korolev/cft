@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
+import { Provider } from 'react-redux'
 import { StaticRouter } from 'react-router'
 import { configureStore } from '../store/store'
 
@@ -21,9 +22,12 @@ interface RouterContext {
 
 export const matchCallback = async (url: string): Promise<MatchCallbackResult> => {
   const context: RouterContext = {}
+  const store = configureStore({})
   const markup = ReactDOMServer.renderToString(
     <StaticRouter location={ url } context={ context }>
-      <App />
+      <Provider store={ store }>
+        <App />
+      </Provider>
     </StaticRouter>
   )
 
@@ -35,7 +39,7 @@ export const matchCallback = async (url: string): Promise<MatchCallbackResult> =
   } else {
     return {
       code: 200,
-      message: renderHTML(markup, configureStore())
+      message: renderHTML(markup, store)
     }
   }
 }

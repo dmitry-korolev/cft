@@ -11,7 +11,7 @@ declare global {
   }
 }
 
-export function configureStore (): Store<State> {
+export function configureStore (initialState: State): Store<State> {
   const middlewares: Middleware[] = []
 
   /* Add Only Dev. Middlewares */
@@ -31,7 +31,11 @@ export function configureStore (): Store<State> {
       window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
     compose
 
-  const store = createStore(always({}), {}, composeEnhancers(applyMiddleware(...middlewares)))
+  const store = createStore(
+    always({}),
+    initialState,
+    composeEnhancers(applyMiddleware(...middlewares))
+  )
 
   if (process.env.NODE_ENV === 'development' && (module as any).hot) {
     (module as any).hot.accept('./reducers', () => {
