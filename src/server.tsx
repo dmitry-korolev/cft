@@ -1,6 +1,13 @@
 /* tslint:disable no-var-requires */
 import debug from 'debug'
-import express from 'express'
+
+// Server
+import bodyParser from 'body-parser'
+import compression from 'compression'
+import feathers from 'feathers'
+import errorsHandler from 'feathers-errors/handler'
+import hooks from 'feathers-hooks'
+import rest from 'feathers-rest'
 import favicon from 'serve-favicon'
 
 // Node
@@ -9,7 +16,13 @@ import path from 'path'
 import { matchCallback } from 'server/matchCallback'
 
 const logInfo = debug('k:server:info')
-const app = express()
+const app = feathers()
+
+app.configure(rest())
+app.configure(hooks())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(compression())
 
 if (process.env.NODE_ENV !== 'production') {
   const webpack = require('webpack')
@@ -33,7 +46,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 app.use(favicon(path.join(__dirname, 'public/favicon.ico')))
-app.use('/public', express.static(path.join(__dirname, 'public')))
+app.use('/public', feathers.static(path.join(__dirname, 'public')))
+
+app.use(errorsHandler())
 
 app.get('*', async (req, res) => {
   const { code, message } = await matchCallback(req.url)
