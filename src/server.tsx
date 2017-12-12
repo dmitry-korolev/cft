@@ -1,25 +1,15 @@
 /* tslint:disable no-var-requires */
+import debug from 'debug'
 import express from 'express'
-import React from 'react'
-import ReactDOMServer from 'react-dom/server'
-import { StaticRouter } from 'react-router-dom'
 import favicon from 'serve-favicon'
 
 // Node
 import path from 'path'
 
-import manifest from '../build/manifest.json'
+import { matchCallback } from 'server/matchCallback'
 
-// App
-import { App } from './containers/App/App'
-import { Html } from './containers/Html/Html'
-import { configureStore } from './store/store'
-
+const logInfo = debug('k:server:info')
 const app = express()
-
-interface RouterContext {
-  url?: string
-}
 
 if (process.env.NODE_ENV !== 'production') {
   const webpack = require('webpack')
@@ -45,28 +35,14 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(favicon(path.join(__dirname, 'public/favicon.ico')))
 app.use('/public', express.static(path.join(__dirname, 'public')))
 
-app.get('*', (req, res) => {
-  const context: RouterContext = {}
-  const markup = ReactDOMServer.renderToString(
-    <StaticRouter location={ req.url } context={ context }>
-      <App />
-    </StaticRouter>
-  )
+app.get('*', async (req, res) => {
+  const { code, message } = await matchCallback(req.url)
 
-  if (context.url) {
-    // Somewhere a `<Redirect>` was rendered
-    res.redirect(301, context.url)
+  if (code === 301) {
+    res.redirect(301, message)
   } else {
-    res.send(renderHTML(markup, configureStore()))
+    res.send(message)
   }
 })
 
-function renderHTML (markup: string, store: any): string {
-  const html = ReactDOMServer.renderToString(
-    <Html markup={ markup } manifest={ manifest } store={ store } />
-  )
-
-  return `<!doctype html> ${html}`
-}
-
-app.listen(9000)
+app.listen(9000, () => logInfo('Listening on port :9000'))
