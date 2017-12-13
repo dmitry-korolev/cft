@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { App } from 'containers/App/App'
 import { configureStore } from 'store/store'
 
-ReactDOM.hydrate(
+ReactDOM.render(
   <BrowserRouter>
     <Provider store={ configureStore() }>
       <App />

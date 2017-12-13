@@ -1,4 +1,3 @@
-import debug from 'debug'
 import React, { ReactElement } from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { Provider } from 'react-redux'
@@ -45,8 +44,6 @@ export const matchCallback = async (url: string): Promise<MatchCallbackResult> =
     }
   } else {
     const styleTags = sheet.getStyleElement()
-
-    debug('cft:html')(styleTags)
 
     return {
       code: 200,

@@ -1,28 +1,42 @@
 declare module 'rebass' {
   import { ComponentType, StatelessComponent } from 'react'
 
-  type S = string | string[]
-  type N = number | number[]
-  type B = boolean | boolean[]
+  type A<T> = T | T[]
+  type Any = A<string | number | boolean>
+  type S = A<string>
+  type N = A<number>
+  type B = A<boolean>
+  type SN = A<string | number | null>
 
-  interface MarginPadding {
-    m: S | N
-    mt: S | N
-    mr: S | N
-    mb: S | N
-    ml: S | N
-    mx: S | N
-    my: S | N
-    p: S | N
-    pt: S | N
-    pr: S | N
-    pb: S | N
-    pl: S | N
-    px: S | N
-    py: S | N
+  interface Styled {
+    width: SN
+    w: SN
+
+    fontSize: SN
+    f: SN
+
+    color: S
+    bg: S
+
+    m: SN
+    mt: SN
+    mr: SN
+    mb: SN
+    ml: SN
+    mx: SN
+    my: SN
+    p: SN
+    pt: SN
+    pr: SN
+    pb: SN
+    pl: SN
+    px: SN
+    py: SN
+
+    is: ComponentType | string | any
   }
 
-  type SC<T> = StatelessComponent<Partial<T & MarginPadding>>
+  type SC<T> = StatelessComponent<Partial<T & Styled>>
 
   export const Flex: SC<{
     align: S
@@ -33,18 +47,35 @@ declare module 'rebass' {
   }>
 
   export const Box: SC<{
-    w: S | N
-    width: S | N
+    w: SN
+    width: SN
     flex: S
-    order: S | N
-    is: ComponentType | string
+    order: SN
   }>
 
   export const Text: SC<{
-    color: string
-    bold: boolean
-    center: boolean
-    bg: string
-    children: string
+    bold: B
+    center: B
   }>
+
+  export const BackgroundImage: SC<{
+    ratio: S
+    src: string
+  }>
+
+  export const NavLink: SC<{
+    href?: string
+    to?: string
+  }>
+
+  export const Link: SC<{
+    href?: string
+    to?: string
+  }>
+
+  export const Card: SC<{}>
+  export const Subhead: SC<{}>
+  export const Small: SC<{}>
+  export const Toolbar: SC<{}>
+  export const Divider: SC<{}>
 }

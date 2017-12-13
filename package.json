@@ -48,6 +48,7 @@
     "feathers-nedb": "^3.0.0",
     "feathers-nedb-fuzzy-search": "^1.1.1",
     "feathers-rest": "^1.8.1",
+    "grommet-icons": "^0.14.0",
     "nedb": "^1.8.0",
     "query-string": "^5.0.1",
     "ramda": "^0.25.0",
