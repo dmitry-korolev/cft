@@ -16,7 +16,7 @@ import favicon from 'serve-favicon'
 import { setupApplication } from 'api/setup'
 import { matchCallback } from 'server/matchCallback'
 
-const logInfo = debug('k:server:info')
+const logInfo = debug('cft:server:info')
 const app = feathers()
 
 app.configure(hooks())

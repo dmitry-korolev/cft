@@ -42,7 +42,7 @@ export class BaseService<Type extends BaseData> extends Service<Type> {
     this.incremental = incremental
     this.validator = validator
 
-    this.logInfo = debug(`k:db:${serviceName}:info`)
+    this.logInfo = debug(`cft:db:${serviceName}:info`)
   }
 
   async find (params: Params = {}) {
