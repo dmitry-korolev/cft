@@ -1,5 +1,5 @@
 declare module 'rebass' {
-  import { ComponentType, StatelessComponent } from 'react'
+  import { ComponentType, HTMLProps, StatelessComponent } from 'react'
 
   type A<T> = T | T[]
   type Any = A<string | number | boolean>
@@ -40,7 +40,7 @@ declare module 'rebass' {
 
   export const Flex: SC<{
     align: S
-    justify: S
+    justify: A<'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around'>
     direction: S
     wrap: B
     column: B
@@ -78,4 +78,7 @@ declare module 'rebass' {
   export const Small: SC<{}>
   export const Toolbar: SC<{}>
   export const Divider: SC<{}>
+  export const Container: SC<{}>
+  export const Media: SC<{}>
+  export const Image: SC<HTMLProps<HTMLImageElement>>
 }

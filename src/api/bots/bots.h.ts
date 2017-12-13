@@ -4,4 +4,5 @@ export interface BotData extends BaseData {
   owner: string
   title: string
   picture: string
+  description: string
 }

@@ -1,5 +1,8 @@
 import React, { StatelessComponent } from 'react'
-import { BackgroundImage, Box, Card, Flex, Small, Subhead } from 'rebass'
+
+// Components
+import { Link } from 'react-router-dom'
+import { Box, Flex, Image, Media, Subhead, Text } from 'rebass'
 
 const bots = [
   {
@@ -35,17 +38,24 @@ const bots = [
 ]
 
 export const BotList: StatelessComponent = () => (
-  <Flex wrap p={ 2 } >
+  <Flex wrap p={ 2 }>
     { bots.map((bot) => {
       return (
-        <Box mx={ 2 } key={ bot._id }>
-          <Card width={ 200 }>
-            <BackgroundImage src={ bot.picture } />
-            <Box p={ 2 }>
-              <Subhead>{ bot.title }</Subhead>
-              <Small>Owner: { bot.owner }</Small>
+        <Box w={ '100%' } mx={ 2 } my={ 1 } key={ bot._id }>
+          <Media>
+            <Link to={ `/bots/${bot._id}` }>
+              <Image mr={ 3 } width={ 128 } height={ 128 } src={ bot.picture } />
+            </Link>
+            <Box>
+              <Subhead>
+                <Link to={ `/bots/${bot._id}` }>{ bot.title }</Link>
+              </Subhead>
+              <Text>Owner: { bot.owner }</Text>
+              <Text>
+                <Link to={ `/users/${bot._id}` }>Bot users</Link>
+              </Text>
             </Box>
-          </Card>
+          </Media>
         </Box>
       )
     }) }
