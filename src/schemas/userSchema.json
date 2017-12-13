@@ -10,15 +10,10 @@
             "type": "string"
         },
         "name": {
-            "type": "object",
-            "properties": {
-                "first": {
-                    "type": "string"
-                },
-                "last": {
-                    "type": "string"
-                }
-            }
+            "type": "string"
+        },
+        "avatarUrl": {
+            "type": "string"
         },
         "username": {
             "type": "string"
@@ -45,20 +40,6 @@
                     "type": "string"
                 },
                 "postcode": true
-            }
-        },
-        "picture": {
-            "type": "object",
-            "properties": {
-                "large": {
-                    "type": "string"
-                },
-                "medium": {
-                    "type": "string"
-                },
-                "thumbnail": {
-                    "type": "string"
-                }
             }
         },
         "level": {

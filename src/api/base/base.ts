@@ -2,7 +2,9 @@ import debug from 'debug'
 import { Unprocessable } from 'feathers-errors'
 import { Service, ServiceOptions } from 'feathers-nedb'
 
-import { assocPath, lens, merge, path, set, T, view } from 'ramda'
+// Utils
+// import { isPaginated } from 'api/utils/isPaginated'
+import { merge, T } from 'ramda'
 
 // Models
 import { ValidateFunction } from 'ajv/lib/ajv'
@@ -11,7 +13,6 @@ import { Application, Params } from 'feathers'
 
 interface CreateServiceOptions extends ServiceOptions {
   serviceName: string
-  incremental?: boolean
   validator?: ValidateFunction
 }
 
@@ -20,39 +21,32 @@ export interface BaseData {
   id?: number
 }
 
-const sortL = lens(path(['query', '$sort']), assocPath(['query', '$sort']))
-const viewSort = view(sortL)
-const setSort = set(sortL, {
-  _created: -1
-})
-
 export class BaseService<Type extends BaseData> extends Service<Type> {
   protected optionsService: any
   protected serviceName: string
 
   private logInfo: IDebugger
-  private incremental: boolean
   private validator: ValidateFunction
 
   constructor (config: CreateServiceOptions) {
-    const { serviceName, incremental = false, validator = T, paginate, Model } = config
+    const { serviceName, validator = T, paginate, Model } = config
     super({ Model, paginate })
 
     this.serviceName = serviceName
-    this.incremental = incremental
     this.validator = validator
 
     this.logInfo = debug(`cft:db:${serviceName}:info`)
   }
 
   async find (params: Params = {}) {
-    if (this.incremental && !viewSort(params)) {
-      params = setSort(params)
-    }
-
     this.logInfo('FIND', params)
+    const result = await super.find(params)
 
-    return super.find(params)
+    // if (isPaginated(result)) {
+    //   return ['asd', 'sads']
+    // }
+
+    return result
   }
 
   async get (id: string, params?: Params) {

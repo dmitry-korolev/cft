@@ -7,10 +7,7 @@ export enum UserLevel {
 
 export interface UserData extends BaseData {
   gender: string
-  name: {
-    first: string
-    last: string
-  }
+  name: string
   location: {
     street: string
     city: string
@@ -21,11 +18,7 @@ export interface UserData extends BaseData {
   username: string
   dob: string
   phone: string
-  picture: {
-    large: string
-    medium: string
-    thumbnail: string
-  }
+  avatarUrl: string
   level: UserLevel
   botId: string
 }
