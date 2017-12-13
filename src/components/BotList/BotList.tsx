@@ -35,11 +35,11 @@ const bots = [
 ]
 
 export const BotList: StatelessComponent = () => (
-  <Flex wrap>
+  <Flex wrap p={ 2 } >
     { bots.map((bot) => {
       return (
-        <Box w={ 1 / 2 } px={ 2 } key={ bot._id }>
-          <Card width={ 256 }>
+        <Box mx={ 2 } key={ bot._id }>
+          <Card width={ 200 }>
             <BackgroundImage src={ bot.picture } />
             <Box p={ 2 }>
               <Subhead>{ bot.title }</Subhead>
