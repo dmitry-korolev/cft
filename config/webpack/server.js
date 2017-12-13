@@ -3,6 +3,7 @@ const fs = require('fs')
 
 // Webpack
 const webpack = require('webpack')
+const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin
 
 const nodeModules = {}
 fs.readdirSync('node_modules')
@@ -65,6 +66,7 @@ const config = {
   },
 
   plugins: [
+    new CheckerPlugin(),
     new webpack.LoaderOptionsPlugin({
       debug: false
     }),

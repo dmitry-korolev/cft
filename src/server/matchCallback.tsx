@@ -22,7 +22,7 @@ interface RouterContext {
 
 export const matchCallback = async (url: string): Promise<MatchCallbackResult> => {
   const context: RouterContext = {}
-  const store = configureStore({})
+  const store = configureStore()
   const markup = ReactDOMServer.renderToString(
     <StaticRouter location={ url } context={ context }>
       <Provider store={ store }>
@@ -39,15 +39,13 @@ export const matchCallback = async (url: string): Promise<MatchCallbackResult> =
   } else {
     return {
       code: 200,
-      message: renderHTML(markup, store)
+      message: renderHTML(markup)
     }
   }
 }
 
-function renderHTML (markup: string, store: any): string {
-  const html = ReactDOMServer.renderToString(
-    <Html markup={ markup } manifest={ manifest } store={ store } />
-  )
+function renderHTML (markup: string): string {
+  const html = ReactDOMServer.renderToString(<Html markup={ markup } manifest={ manifest } />)
 
   return `<!doctype html> ${html}`
 }

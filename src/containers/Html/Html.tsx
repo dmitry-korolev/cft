@@ -1,20 +1,10 @@
 import React from 'react'
 import Helmet from 'react-helmet'
-import { Store } from 'redux'
 
 export const Html = (props: HtmlProps) => {
-  const { markup, store, manifest } = props
+  const { markup, manifest } = props
   const head = Helmet.rewind()
   const renderScripts = <script src={ `/public/${manifest['app.js']}` } />
-
-  const initialState = (
-    <script
-      dangerouslySetInnerHTML={ {
-        __html: `window.__INITIAL_STATE__=${JSON.stringify(store.getState())};`
-      } }
-      charSet='UTF-8'
-    />
-  )
 
   return (
     <html>
@@ -28,7 +18,6 @@ export const Html = (props: HtmlProps) => {
       </head>
       <body>
         <main id='app' dangerouslySetInnerHTML={ { __html: markup } } />
-        { initialState }
         { renderScripts }
       </body>
     </html>
@@ -38,5 +27,4 @@ export const Html = (props: HtmlProps) => {
 interface HtmlProps {
   manifest: { [K: string]: string }
   markup: string
-  store: Store<{}>
 }

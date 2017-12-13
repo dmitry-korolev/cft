@@ -1,0 +1,77 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "title": "User",
+    "additionalProperties": false,
+    "properties": {
+        "gender": {
+            "type": "string"
+        },
+        "email": {
+            "type": "string"
+        },
+        "name": {
+            "type": "object",
+            "properties": {
+                "first": {
+                    "type": "string"
+                },
+                "last": {
+                    "type": "string"
+                }
+            }
+        },
+        "username": {
+            "type": "string"
+        },
+        "dob": {
+            "type": "string"
+        },
+        "phone": {
+            "type": "string"
+        },
+        "botId": {
+            "type": "string"
+        },
+        "location": {
+            "type": "object",
+            "properties": {
+                "street": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "postcode": true
+            }
+        },
+        "picture": {
+            "type": "object",
+            "properties": {
+                "large": {
+                    "type": "string"
+                },
+                "medium": {
+                    "type": "string"
+                },
+                "thumbnail": {
+                    "type": "string"
+                }
+            }
+        },
+        "level": {
+            "enum": [
+                0,
+                50
+            ],
+            "type": "integer"
+        }
+    },
+    "required": [
+        "username",
+        "email"
+    ],
+    "type": "object"
+}

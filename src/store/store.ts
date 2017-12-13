@@ -11,7 +11,9 @@ declare global {
   }
 }
 
-export function configureStore (initialState: State): Store<State> {
+const initialState: State = {}
+
+export function configureStore (): Store<State> {
   const middlewares: Middleware[] = []
 
   /* Add Only Dev. Middlewares */
@@ -37,12 +39,12 @@ export function configureStore (initialState: State): Store<State> {
     composeEnhancers(applyMiddleware(...middlewares))
   )
 
-  if (process.env.NODE_ENV === 'development' && (module as any).hot) {
-    (module as any).hot.accept('./reducers', () => {
-      // store.replaceReducer((require('./reducers')))
-      store.replaceReducer(always({}))
-    })
-  }
+  // if (process.env.NODE_ENV === 'development' && (module as any).hot) {
+  //   (module as any).hot.accept('./reducers', () => {
+  //     // store.replaceReducer((require('./reducers')))
+  //     store.replaceReducer(always({}))
+  //   })
+  // }
 
   return store
 }

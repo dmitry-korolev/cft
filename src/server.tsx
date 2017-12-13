@@ -8,18 +8,20 @@ import feathers from 'feathers'
 import errorsHandler from 'feathers-errors/handler'
 import hooks from 'feathers-hooks'
 import rest from 'feathers-rest'
-import favicon from 'serve-favicon'
-
 // Node
 import path from 'path'
+import favicon from 'serve-favicon'
 
+// Utils
+import { setupApplication } from 'api/setup'
 import { matchCallback } from 'server/matchCallback'
 
 const logInfo = debug('k:server:info')
 const app = feathers()
 
-app.configure(rest())
 app.configure(hooks())
+app.configure(rest())
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(compression())
@@ -48,6 +50,7 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(favicon(path.join(__dirname, 'public/favicon.ico')))
 app.use('/public', feathers.static(path.join(__dirname, 'public')))
 
+setupApplication(app)
 app.use(errorsHandler())
 
 app.get('*', async (req, res) => {
