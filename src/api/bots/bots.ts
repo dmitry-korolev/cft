@@ -3,6 +3,7 @@ import NeDB from 'nedb'
 // Utils
 import { BaseService } from 'api/base/base'
 import { dbPath } from 'api/utils/dbPath'
+import { mimicApiHook } from 'api/utils/mimicApiHook'
 
 // Models
 import { BotData } from 'api/bots/bots.h'
@@ -14,7 +15,9 @@ const db: NeDB = new NeDB({
   autoload: true
 })
 
-class BotsService extends BaseService<BotData> {}
+class BotsService extends BaseService<BotData> {
+  after = mimicApiHook()
+}
 
 export const botsService = (): any =>
   new BotsService({

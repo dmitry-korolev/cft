@@ -1,11 +1,11 @@
+import search from 'feathers-nedb-fuzzy-search'
 import NeDB from 'nedb'
 
 // Utils
 import { BaseService } from 'api/base/base'
 import { validateUser } from 'api/users/validateUser'
-// import { combineHooks } from 'api/utils/combineHooks'
 import { dbPath } from 'api/utils/dbPath'
-// import { restrictToAdmin } from 'api/utils/restrictToAdmin'
+import { mimicApiHook } from 'api/utils/mimicApiHook'
 
 // Models
 import { UserData, UserLevel } from 'api/users/users.h'
@@ -18,9 +18,13 @@ const db: NeDB = new NeDB({
 })
 
 class UsersService extends BaseService<UserData> {
-  // before = combineHooks(
-  //   restrictToAdmin()
-  // )
+  before = {
+    find: search({
+      fields: ['name', 'username', 'location'],
+      deep: true
+    })
+  }
+  after = mimicApiHook()
 
   async create (data: UserData, params: any) {
     if (!data.level) {
