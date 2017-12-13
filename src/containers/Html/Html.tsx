@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import Helmet from 'react-helmet'
 
 export const Html = (props: HtmlProps) => {
-  const { markup, manifest } = props
+  const { markup, manifest, styleTags } = props
   const head = Helmet.rewind()
   const renderScripts = <script src={ `/public/${manifest['app.js']}` } />
 
@@ -15,6 +15,7 @@ export const Html = (props: HtmlProps) => {
         { head.link.toComponent() }
         { head.script.toComponent() }
         <link rel='shortcut icon' href='/favicon.ico' />
+        { styleTags }
       </head>
       <body>
         <main id='app' dangerouslySetInnerHTML={ { __html: markup } } />
@@ -27,4 +28,5 @@ export const Html = (props: HtmlProps) => {
 interface HtmlProps {
   manifest: { [K: string]: string }
   markup: string
+  styleTags: Array<ReactElement<any>>
 }

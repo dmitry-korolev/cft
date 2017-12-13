@@ -1,8 +1,11 @@
-import React from 'react'
+import debug from 'debug'
+import React, { ReactElement } from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { Provider } from 'react-redux'
 import { StaticRouter } from 'react-router'
-import { configureStore } from '../store/store'
+import { ServerStyleSheet } from 'styled-components'
+
+import { configureStore } from 'store/store'
 
 // Components
 import { App } from '../containers/App/App'
@@ -23,12 +26,16 @@ interface RouterContext {
 export const matchCallback = async (url: string): Promise<MatchCallbackResult> => {
   const context: RouterContext = {}
   const store = configureStore()
+  const sheet = new ServerStyleSheet()
+
   const markup = ReactDOMServer.renderToString(
-    <StaticRouter location={ url } context={ context }>
-      <Provider store={ store }>
-        <App />
-      </Provider>
-    </StaticRouter>
+    sheet.collectStyles(
+      <StaticRouter location={ url } context={ context }>
+        <Provider store={ store }>
+          <App />
+        </Provider>
+      </StaticRouter>
+    )
   )
 
   if (context.url) {
@@ -37,15 +44,21 @@ export const matchCallback = async (url: string): Promise<MatchCallbackResult> =
       message: context.url
     }
   } else {
+    const styleTags = sheet.getStyleElement()
+
+    debug('cft:html')(styleTags)
+
     return {
       code: 200,
-      message: renderHTML(markup)
+      message: renderHTML(markup, styleTags)
     }
   }
 }
 
-function renderHTML (markup: string): string {
-  const html = ReactDOMServer.renderToString(<Html markup={ markup } manifest={ manifest } />)
+function renderHTML (markup: string, styleTags: Array<ReactElement<any>>): string {
+  const html = ReactDOMServer.renderToString(
+    <Html markup={ markup } manifest={ manifest } styleTags={ styleTags } />
+  )
 
   return `<!doctype html> ${html}`
 }
