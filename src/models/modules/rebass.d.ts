@@ -12,6 +12,9 @@ declare module 'rebass' {
     width: SN
     w: SN
 
+    height: SN
+    h: SN
+
     fontSize: SN
     f: SN
 
@@ -34,6 +37,7 @@ declare module 'rebass' {
     py: SN
 
     is: ComponentType | string | any
+    to: string
   }
 
   type SC<T> = StatelessComponent<Partial<T & Styled>>
@@ -74,11 +78,14 @@ declare module 'rebass' {
   }>
 
   export const Card: SC<{}>
-  export const Subhead: SC<{}>
   export const Small: SC<{}>
   export const Toolbar: SC<{}>
   export const Divider: SC<{}>
   export const Container: SC<{ maxWidth: 1280 }>
   export const Media: SC<{}>
+
   export const Image: SC<HTMLProps<HTMLImageElement>>
+  export const ButtonTransparent: SC<HTMLProps<HTMLButtonElement>>
+  export const Heading: SC<HTMLProps<HTMLHeadingElement>>
+  export const Subhead: SC<HTMLProps<HTMLHeadingElement>>
 }

@@ -4,6 +4,7 @@ declare module 'grommet-icons' {
     size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'huge'
   }>
 
+  export const Add: Icon
   export const Robot: Icon
   export const User: Icon
 }

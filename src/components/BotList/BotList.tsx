@@ -1,8 +1,10 @@
 import React, { StatelessComponent } from 'react'
 
 // Components
+import { AddListItem } from 'components/AddListItem/AddListItem'
+import { ListItem } from 'components/ListItem/ListItem'
 import { Link } from 'react-router-dom'
-import { Box, Flex, Image, Media, Subhead, Text } from 'rebass'
+import { Box, Flex, Text } from 'rebass'
 
 const bots = [
   {
@@ -38,24 +40,19 @@ const bots = [
 ]
 
 export const BotList: StatelessComponent = () => (
-  <Flex wrap p={ 2 }>
+  <Flex wrap>
+    <Box w={ '100%' } mt={ 2 }>
+      <AddListItem title='Добавить бота' link={ '/bots/add' } />
+    </Box>
     { bots.map((bot) => {
       return (
-        <Box w={ '100%' } mx={ 2 } my={ 1 } key={ bot._id }>
-          <Media>
-            <Link to={ `/bots/${bot._id}` }>
-              <Image mr={ 3 } width={ 64 } height={ 64 } src={ bot.picture } />
-            </Link>
-            <Box>
-              <Subhead>
-                <Link to={ `/bots/${bot._id}` }>{ bot.title }</Link>
-              </Subhead>
-              <Text>Owner: { bot.owner }</Text>
-              <Text>
-                <Link to={ `/users/${bot._id}` }>Bot users</Link>
-              </Text>
-            </Box>
-          </Media>
+        <Box w={ '100%' } mt={ 2 } key={ bot._id }>
+          <ListItem link={ `/bots/${bot._id}` } title={ bot.title } imageSrc={ bot.picture }>
+            <Text>Owner: { bot.owner }</Text>
+            <Text>
+              <Link to={ `/users/${bot._id}` }>Bot users</Link>
+            </Text>
+          </ListItem>
         </Box>
       )
     }) }
