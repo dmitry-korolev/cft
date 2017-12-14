@@ -20,5 +20,5 @@ export interface UserData extends BaseData {
   phone: string
   avatarUrl: string
   level: UserLevel
-  botId: string
+  botIds: string[]
 }

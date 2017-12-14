@@ -24,8 +24,11 @@
         "phone": {
             "type": "string"
         },
-        "botId": {
-            "type": "string"
+        "botIds": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         },
         "location": {
             "type": "object",
