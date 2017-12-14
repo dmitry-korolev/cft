@@ -7,9 +7,11 @@ import { BrowserRouter } from 'react-router-dom'
 import { App } from 'containers/App/App'
 import { configureStore } from 'store/store'
 
+const store = configureStore()
+
 ReactDOM.render(
   <BrowserRouter>
-    <Provider store={ configureStore() }>
+    <Provider store={ store }>
       <App />
     </Provider>
   </BrowserRouter>,

@@ -77,15 +77,43 @@ declare module 'rebass' {
     to?: string
   }>
 
+  export const Heading: SC<{
+    left: boolean
+    center: boolean
+    right: boolean
+    justify: boolean
+    bold: boolean
+    caps: boolean
+  }>
+
+  export const Input: SC<HTMLProps<HTMLInputElement>>
+  export const Select: SC<HTMLProps<HTMLSelectElement>>
+  export const Textarea: SC<HTMLProps<HTMLTextAreaElement>>
+
   export const Card: SC<{}>
   export const Small: SC<{}>
   export const Toolbar: SC<{}>
   export const Divider: SC<{}>
-  export const Container: SC<{ maxWidth: 1280 }>
+  export const Container: SC<{ maxWidth: number }>
   export const Media: SC<{}>
 
   export const Image: SC<HTMLProps<HTMLImageElement>>
+  export const Button: SC<HTMLProps<HTMLButtonElement>>
   export const ButtonTransparent: SC<HTMLProps<HTMLButtonElement>>
-  export const Heading: SC<HTMLProps<HTMLHeadingElement>>
   export const Subhead: SC<HTMLProps<HTMLHeadingElement>>
+
+  export const Provider: StatelessComponent<{
+    theme?: {
+      breakpoints?: number[]
+      space?: number[]
+      fontSizes?: number[]
+      weights?: number[]
+      colors?: {
+        [K: string]: string
+      }
+      radius?: number
+      font?: string
+      monospace?: string
+    }
+  }>
 }

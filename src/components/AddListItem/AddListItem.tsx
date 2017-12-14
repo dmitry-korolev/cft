@@ -1,35 +1,28 @@
 // Utils
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { compose, defaultProps, setDisplayName } from 'recompose'
+import { setDisplayName } from 'recompose'
 
 // Components
-import { ButtonPointer, CenteredAdd } from 'components/AddListItem/AddListItem.s'
-import { Box, Media, Subhead } from 'rebass'
+import { Add } from 'grommet-icons'
+import { Box, ButtonTransparent, Media, Subhead } from 'rebass'
 
-const enhance = compose<OwnProps, OwnProps>(
-  setDisplayName('AddListItem'),
-  defaultProps({
-    onClick: () => undefined
-  })
-)
+// Models
+import { AddListItemProps } from 'components/AddListItem/AddListItem.h'
+
+const enhance = setDisplayName<AddListItemProps>('AddListItem')
 
 export const AddListItem = enhance((props) => {
   return (
-    <ButtonPointer to={ props.link } is={ Link } w={ '100%' }>
+    <ButtonTransparent to={ props.link } is={ Link } w={ '100%' } p={ 0 } py={ 2 }>
       <Media>
-        <Box mr={ 3 } w={ 32 }>
-          <CenteredAdd size='large' />
+        <Box mr={ 3 } w={ 64 }>
+          <Add size='large' />
         </Box>
         <Box>
           <Subhead>{ props.title }</Subhead>
         </Box>
       </Media>
-    </ButtonPointer>
+    </ButtonTransparent>
   )
 })
-
-interface OwnProps {
-  title: string
-  link: string
-}

@@ -41,12 +41,12 @@ const bots = [
 
 export const BotList: StatelessComponent = () => (
   <Flex wrap>
-    <Box w={ '100%' } mt={ 2 }>
+    <Box w={ '100%' } mt={ 3 }>
       <AddListItem title='Добавить бота' link={ '/bots/add' } />
     </Box>
     { bots.map((bot) => {
       return (
-        <Box w={ '100%' } mt={ 2 } key={ bot._id }>
+        <Box w={ '100%' } mt={ 3 } key={ bot._id }>
           <ListItem link={ `/bots/${bot._id}` } title={ bot.title } imageSrc={ bot.picture }>
             <Text>Owner: { bot.owner }</Text>
             <Text>

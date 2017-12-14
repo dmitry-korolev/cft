@@ -1,2 +1,2 @@
-export const sidebarWidth = 250
-export const listWidth = 350
+export const sidebarWidth = 300
+export const listWidth = 400
