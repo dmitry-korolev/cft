@@ -17,7 +17,7 @@ export const AddListItem = enhance((props) => {
     <ButtonTransparent to={ props.link } is={ Link } w={ '100%' } p={ 0 } py={ 2 }>
       <Media>
         <Box mr={ 3 } w={ 64 }>
-          <Add size='large' />
+          <Add />
         </Box>
         <Box>
           <Subhead>{ props.title }</Subhead>

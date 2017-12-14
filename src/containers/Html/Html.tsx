@@ -14,6 +14,7 @@ export const Html = (props: HtmlProps) => {
         { head.meta.toComponent() }
         { head.link.toComponent() }
         { head.script.toComponent() }
+        <link rel='preconnect' href='https://fonts.gstatic.com/' crossOrigin='use-credentials' />
         <link rel='shortcut icon' href='/favicon.ico' />
         { false && styleTags }
       </head>

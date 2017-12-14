@@ -31,7 +31,7 @@ export const App: StatelessComponent = () => (
       <TopBar />
 
       <Flex mx={ -2 }>
-        <Box order={ 2 } px={ 2 } flex={ '0 1 auto' } w={ listWidth }>
+        <Box order={ 2 } px={ 2 } flex={ '0 0 auto' } w={ listWidth }>
           <Route path='/bots' component={ BotList } />
         </Box>
         <Box order={ 3 } px={ 2 } flex={ '1 1 auto' }>
@@ -40,7 +40,7 @@ export const App: StatelessComponent = () => (
             <Route path='/bots/:botId' component={ Bot } />
           </Switch>
         </Box>
-        <Box order={ 0 } px={ 2 } flex={ '0 1 auto' } w={ sidebarWidth }>
+        <Box order={ 0 } px={ 2 } flex={ '0 0 auto' } w={ sidebarWidth }>
           <Sidebar />
         </Box>
       </Flex>

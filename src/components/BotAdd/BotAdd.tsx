@@ -2,7 +2,7 @@ import React from 'react'
 import { compose, setDisplayName, withStateHandlers } from 'recompose'
 
 // Components
-import { Heading } from 'rebass'
+import { Box, Heading } from 'rebass'
 
 // Models
 import { BotAddFormState, BotAddFormStateHandlers } from 'components/BotAdd/BotAdd.h'
@@ -41,9 +41,9 @@ const statusOptions = [
 
 export const BotAdd = enhance(() => {
   return (
-    <div>
+    <Box mt={ 3 }>
       <Heading center>Добавление нового бота</Heading>
       <BotAddForm owners={ statusOptions } />
-    </div>
+    </Box>
   )
 })
