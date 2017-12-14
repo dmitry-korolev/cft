@@ -16,7 +16,7 @@ const getNextPage = (total: number, limit: number, skip: number, query: object):
   }
 }
 
-const getPrevPageUrl = (limit: number, skip: number, query: object): string | void => {
+const getPreviousPageUrl = (limit: number, skip: number, query: object): string | void => {
   const prev = skip - limit
 
   if (prev === 0) {
@@ -39,7 +39,7 @@ export const mimicApiHook = (): HookMap => {
 
       hook.result = removeEmptyFields({
         result: data,
-        previousPageUrl: getPrevPageUrl(limit, skip, query),
+        previousPageUrl: getPreviousPageUrl(limit, skip, query),
         nextPageUrl: getNextPage(total, limit, skip, query)
       })
     },

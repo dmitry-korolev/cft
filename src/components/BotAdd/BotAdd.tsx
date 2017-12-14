@@ -1,11 +1,19 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { compose, setDisplayName, withStateHandlers } from 'recompose'
 
 // Components
 import { Box, Heading } from 'rebass'
 
+// Actions
+import { loadBotsNextPage } from 'store/bots/actions'
+
 // Models
-import { BotAddFormState, BotAddFormStateHandlers } from 'components/BotAdd/BotAdd.h'
+import {
+  BotAddDispatchProps,
+  BotAddFormState,
+  BotAddFormStateHandlers
+} from 'components/BotAdd/BotAdd.h'
 import { BotAddForm } from 'components/BotAdd/BotAddForm'
 
 const formState = withStateHandlers(
@@ -19,7 +27,11 @@ const formState = withStateHandlers(
     setState: () => (state) => state
   }
 )
-const enhance = compose<BotAddFormState & BotAddFormStateHandlers, {}>(
+const connectToState = connect(null, {
+  loadBotsNextPage
+})
+const enhance = compose<BotAddFormState & BotAddFormStateHandlers & BotAddDispatchProps, {}>(
+  connectToState,
   formState,
   setDisplayName('BotAdd')
 )
@@ -39,11 +51,11 @@ const statusOptions = [
   }
 ]
 
-export const BotAdd = enhance(() => {
+export const BotAdd = enhance((props) => {
   return (
     <Box mt={ 3 }>
       <Heading center>Добавление нового бота</Heading>
-      <BotAddForm owners={ statusOptions } />
+      <BotAddForm owners={ statusOptions } onSubmit={ props.loadBotsNextPage } />
     </Box>
   )
 })

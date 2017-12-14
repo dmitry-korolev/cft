@@ -51,6 +51,7 @@
     "feathers-rest": "^1.8.1",
     "formik": "^0.10.5",
     "grommet-icons": "^0.14.0",
+    "most": "^1.7.2",
     "nedb": "^1.8.0",
     "query-string": "^5.0.1",
     "ramda": "^0.25.0",
@@ -62,7 +63,9 @@
     "rebass": "^1.0.4",
     "recompose": "^0.26.0",
     "redux": "^3.7.2",
+    "redux-act": "^1.5.1",
     "redux-logger": "^3.0.6",
+    "redux-most": "^0.6.2",
     "styled-components": "^2.2.4",
     "tslib": "^1.8.1"
   },

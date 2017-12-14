@@ -4,8 +4,7 @@ import { Application } from 'feathers'
 // Services
 import { botsService, botsServiceName } from 'api/bots/bots'
 import { usersService, usersServiceName } from 'api/users/users'
-
-const apiEndpoint = (serviceName: string): string => `/api/${serviceName}`
+import { apiEndpoint } from 'api/utils/apiEndpoint'
 
 export const setupApplication = (app: Application) => {
   // app.configure(authentication({

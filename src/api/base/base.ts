@@ -17,8 +17,8 @@ interface CreateServiceOptions extends ServiceOptions {
 }
 
 export interface BaseData {
-  _created?: Date
-  id?: number
+  _created: Date
+  _id: string
 }
 
 export class BaseService<Type extends BaseData> extends Service<Type> {

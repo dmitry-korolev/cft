@@ -1,6 +1,9 @@
-import { always } from 'ramda'
 import { applyMiddleware, compose, createStore, Middleware, Store } from 'redux'
 import { createLogger } from 'redux-logger'
+import { createEpicMiddleware } from 'redux-most'
+
+import { rootEpic } from 'store/root/epic'
+import { rootReducer } from 'store/root/reducers'
 
 // Models
 import { State } from 'store/store.h'
@@ -14,7 +17,8 @@ declare global {
 const initialState: State = {}
 
 export function configureStore (): Store<State> {
-  const middlewares: Middleware[] = []
+  const epicMiddleware = createEpicMiddleware(rootEpic)
+  const middlewares: Middleware[] = [epicMiddleware]
 
   /* Add Only Dev. Middlewares */
   if (process.env.NODE_ENV !== 'production' && process.env.BROWSER) {
@@ -34,7 +38,7 @@ export function configureStore (): Store<State> {
     compose
 
   const store = createStore(
-    always({}),
+    rootReducer,
     initialState,
     composeEnhancers(applyMiddleware(...middlewares))
   )

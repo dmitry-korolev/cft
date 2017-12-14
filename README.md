@@ -3,10 +3,8 @@
 
 # В ролях
 - Typescript
-- React
-- Redux
-- Most
-- Feathers
+- Feathers + NeDB для прототипирования API
+- RRR на клиенте
 - и [многие-многие другие](package.json)
 
 # Запуск

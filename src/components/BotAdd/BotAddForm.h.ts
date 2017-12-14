@@ -5,4 +5,5 @@ interface Option {
 
 export interface BotAddFormProps {
   owners: Option[]
+  onSubmit: () => void
 }
