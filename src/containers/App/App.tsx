@@ -7,7 +7,7 @@ import { Bot } from 'components/Bot/Bot'
 import { BotList } from 'components/BotList/BotList'
 import { Sidebar } from 'components/Sidebar/Sidebar'
 import { TopBar } from 'components/TopBar/TopBar'
-import { Box, Flex } from 'rebass'
+import { Box, Container, Flex } from 'rebass'
 
 // Constants
 import { listWidth, sidebarWidth } from 'constants/styles'
@@ -18,7 +18,7 @@ injectGlobal`
 `
 
 export const App: StatelessComponent = () => (
-  <div>
+  <Container maxWidth={ 1280 }>
     <TopBar />
 
     <Flex mx={ -2 }>
@@ -32,7 +32,7 @@ export const App: StatelessComponent = () => (
         <Sidebar />
       </Box>
     </Flex>
-  </div>
+  </Container>
 )
 
 App.displayName = 'App'

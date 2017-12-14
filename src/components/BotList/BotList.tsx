@@ -44,7 +44,7 @@ export const BotList: StatelessComponent = () => (
         <Box w={ '100%' } mx={ 2 } my={ 1 } key={ bot._id }>
           <Media>
             <Link to={ `/bots/${bot._id}` }>
-              <Image mr={ 3 } width={ 128 } height={ 128 } src={ bot.picture } />
+              <Image mr={ 3 } width={ 64 } height={ 64 } src={ bot.picture } />
             </Link>
             <Box>
               <Subhead>

@@ -78,7 +78,7 @@ declare module 'rebass' {
   export const Small: SC<{}>
   export const Toolbar: SC<{}>
   export const Divider: SC<{}>
-  export const Container: SC<{}>
+  export const Container: SC<{ maxWidth: 1280 }>
   export const Media: SC<{}>
   export const Image: SC<HTMLProps<HTMLImageElement>>
 }
