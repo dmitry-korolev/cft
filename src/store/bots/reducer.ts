@@ -1,7 +1,12 @@
 import { indexBy, merge, prop } from 'ramda'
 
 // Actions
-import { loadBotsNextPage, loadBotsSuccess } from 'store/bots/actions'
+import {
+  loadBotsFail,
+  loadBotsNextPage,
+  loadBotsPrevPage,
+  loadBotsSuccess
+} from 'store/bots/actions'
 
 // Utils
 import { botsServiceName } from 'api/bots/bots'
@@ -26,13 +31,22 @@ export const botsReducer = createReducer<BotsState>(
       merge(state, {
         isLoading: true
       }),
-    [loadBotsSuccess.getType()]: (_, payload: ApiResponce<BotDataFull>) => ({
+    [loadBotsPrevPage.getType()]: (state) =>
+      merge(state, {
+        isLoading: true
+      }),
+    [loadBotsSuccess.getType()]: (state, payload: ApiResponce<BotDataFull>) => ({
       bots: indexById(payload.result),
-      nextPageUrl: payload.nextPageUrl,
+      nextPageUrl: payload.nextPageUrl || state.nextPageUrl,
       previousPageUrl: payload.previousPageUrl,
       isLoading: false,
       error: null
-    })
+    }),
+    [loadBotsFail.getType()]: (state, error: any) =>
+      merge(state, {
+        isLoading: false,
+        error
+      })
   },
   initialState
 )
