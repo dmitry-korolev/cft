@@ -1,9 +1,7 @@
-import { BotData } from 'api/bots/bots.h'
+import { BotDataFull } from 'api/bots/bots.h'
 
 export interface BotsState {
-  bots: {
-    [K: string]: BotData
-  }
+  bots: BotDataFull[]
   nextPageUrl?: string
   previousPageUrl?: string
   isLoading?: boolean

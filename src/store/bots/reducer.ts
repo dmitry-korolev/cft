@@ -1,4 +1,4 @@
-import { indexBy, merge, prop } from 'ramda'
+import { merge } from 'ramda'
 
 // Actions
 import {
@@ -19,11 +19,9 @@ import { ApiResponce } from 'models/api/responce'
 import { BotsState } from 'store/bots/reducer.h'
 
 const initialState = {
-  bots: {},
+  bots: [],
   nextPageUrl: apiEndpoint(botsServiceName)
 }
-
-const indexById = indexBy<BotDataFull>(prop('_id'))
 
 export const botsReducer = createReducer<BotsState>(
   {
@@ -36,7 +34,7 @@ export const botsReducer = createReducer<BotsState>(
         isLoading: true
       }),
     [loadBotsSuccess.getType()]: (state, payload: ApiResponce<BotDataFull>) => ({
-      bots: indexById(payload.result),
+      bots: payload.result,
       nextPageUrl: payload.nextPageUrl || state.nextPageUrl,
       previousPageUrl: payload.previousPageUrl,
       isLoading: false,

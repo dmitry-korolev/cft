@@ -14,8 +14,6 @@ declare global {
   }
 }
 
-const initialState: State = {}
-
 export function configureStore (): Store<State> {
   const epicMiddleware = createEpicMiddleware(rootEpic)
   const middlewares: Middleware[] = [epicMiddleware]
@@ -37,18 +35,5 @@ export function configureStore (): Store<State> {
       window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
     compose
 
-  const store = createStore(
-    rootReducer,
-    initialState,
-    composeEnhancers(applyMiddleware(...middlewares))
-  )
-
-  // if (process.env.NODE_ENV === 'development' && (module as any).hot) {
-  //   (module as any).hot.accept('./reducers', () => {
-  //     // store.replaceReducer((require('./reducers')))
-  //     store.replaceReducer(always({}))
-  //   })
-  // }
-
-  return store
+  return createStore(rootReducer, composeEnhancers(applyMiddleware(...middlewares)))
 }
