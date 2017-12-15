@@ -1,31 +1,105 @@
-import React, { FormEvent } from 'react'
-import { Button, Input, Select, Textarea } from 'rebass'
-import { setDisplayName } from 'recompose'
+import { withFormik } from 'formik'
+import React from 'react'
+import { Button, Input, Textarea } from 'rebass'
+
+// Utils
+import { botsServiceName } from 'api/bots/bots'
+import { apiEndpoint } from 'api/utils/apiEndpoint'
 
 // Models
-import { BotAddFormProps } from 'components/BotAdd/BotAddForm.h'
+import { BotAddFormErrors, BotAddFormProps, BotAddFormValues } from 'components/BotAdd/BotAddForm.h'
 
-const enhance = setDisplayName<BotAddFormProps>('BotAddForm')
+const enhance = withFormik<BotAddFormProps, BotAddFormValues>({
+  mapPropsToValues: () => ({
+    owner: '',
+    description: '',
+    picture: '',
+    title: ''
+  }),
+
+  // Custom sync validation
+  validate: (values: BotAddFormValues) => {
+    const errors: BotAddFormErrors = {}
+    if (!values.description) {
+      errors.description = 'Description is required!'
+    }
+    if (!values.owner) {
+      errors.owner = 'Owner is required!'
+    }
+    if (!values.picture) {
+      errors.picture = 'Image is required!'
+    }
+    if (!values.title) {
+      errors.title = 'Title is required!'
+    }
+    return errors
+  },
+
+  handleSubmit: async (values, props) => {
+    return fetch(apiEndpoint(botsServiceName), {
+      method: 'POST',
+      body: JSON.stringify(values),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(() => {
+        props.resetForm()
+        props.setSubmitting(false)
+        props.props.onSubmit()
+      })
+      .catch((error) => {
+        props.setSubmitting(false)
+        props.props.onError(error)
+      })
+  },
+
+  displayName: 'BotAddForm'
+})
 
 export const BotAddForm = enhance((props) => {
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    props.onSubmit()
-  }
+  const { handleChange, handleBlur, handleSubmit, values, isSubmitting, touched, errors } = props
 
   return (
     <form onSubmit={ handleSubmit }>
-      <Input name='title' id='title' mt={ 3 } />
-      <Input name='picture' id='picture' mt={ 3 } />
-      <Select name='owner' id='owner' mt={ 3 }>
-        { props.owners.map((o) => (
-          <option key={ o.value } value={ o.value }>
-            { o.value || o.label }
-          </option>
-        )) }
-      </Select>
-      <Textarea name='description' id='description' mt={ 3 } />
-      <Button type='submit' mt={ 3 }>
+      <Input
+        onChange={ handleChange }
+        value={ values.title }
+        onBlur={ handleBlur }
+        name='title'
+        id='title'
+        placeholder='Название бота'
+        mt={ 3 }
+      />
+      { touched.title && errors.title && <div>{ errors.title }</div> }
+      <Input
+        onChange={ handleChange }
+        value={ values.picture }
+        onBlur={ handleBlur }
+        name='picture'
+        id='picture'
+        placeholder='Ссылка на изображение'
+        mt={ 3 }
+      />
+      <Input
+        onChange={ handleChange }
+        value={ values.owner }
+        onBlur={ handleBlur }
+        name='owner'
+        id='owner'
+        placeholder='Bot'
+        mt={ 3 }
+      />
+      <Textarea
+        onChange={ handleChange }
+        value={ values.description }
+        onBlur={ handleBlur }
+        name='description'
+        id='description'
+        mt={ 3 }
+      />
+      <Button type='submit' mt={ 3 } disabled={ isSubmitting }>
         Добавить
       </Button>
     </form>

@@ -1,15 +1,6 @@
-import { loadBotsNextPage } from 'store/bots/actions'
-
-export interface BotAddFormState {
-  title: string
-  owner: string
-  description: string
-}
-
-export interface BotAddFormStateHandlers {
-  setState (state: BotAddFormState): BotAddFormState
-}
+import { loadBotsFail, loadBotsNextPage } from 'store/bots/actions'
 
 export interface BotAddDispatchProps {
   loadBotsNextPage: typeof loadBotsNextPage
+  loadBotsFail: typeof loadBotsFail
 }

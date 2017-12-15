@@ -1,9 +1,10 @@
-interface Option {
-  value: string
-  label?: string
-}
+import { BotData } from 'api/bots/bots.h'
 
 export interface BotAddFormProps {
-  owners: Option[]
   onSubmit: () => void
+  onError: (reason: any) => void
 }
+
+export type BotAddFormValues = BotData
+
+export type BotAddFormErrors = Partial<Record<keyof BotData, string>>
