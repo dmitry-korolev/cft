@@ -4,15 +4,16 @@ import { Service, ServiceOptions } from 'feathers-nedb'
 
 // Utils
 // import { isPaginated } from 'api/utils/isPaginated'
-import { merge, T } from 'ramda'
+import { assocPath, lens, merge, path, set, T, view } from 'ramda'
 
 // Models
 import { ValidateFunction } from 'ajv/lib/ajv'
 import IDebugger = debug.IDebugger
-import { Application, Params } from 'feathers'
+import { Params } from 'feathers'
 
 interface CreateServiceOptions extends ServiceOptions {
   serviceName: string
+  incremental?: boolean
   validator?: ValidateFunction
 }
 
@@ -21,32 +22,37 @@ export interface BaseData {
   _id: string
 }
 
+const sortL = lens(path(['query', '$sort']), assocPath(['query', '$sort']))
+const viewSort = view(sortL)
+const setSort = set(sortL, {
+  _created: -1
+})
+
 export class BaseService<Type extends BaseData> extends Service<Type> {
-  protected optionsService: any
   protected serviceName: string
+  protected incremental: boolean
 
   private logInfo: IDebugger
   private validator: ValidateFunction
 
   constructor (config: CreateServiceOptions) {
-    const { serviceName, validator = T, paginate, Model } = config
+    const { serviceName, validator = T, incremental = false, paginate, Model } = config
     super({ Model, paginate })
 
     this.serviceName = serviceName
     this.validator = validator
+    this.incremental = incremental
 
     this.logInfo = debug(`cft:db:${serviceName}:info`)
   }
 
   async find (params: Params = {}) {
+    if (this.incremental && !viewSort(params)) {
+      params = setSort(params)
+    }
+
     this.logInfo('FIND', params)
-    const result = await super.find(params)
-
-    // if (isPaginated(result)) {
-    //   return ['asd', 'sads']
-    // }
-
-    return result
+    return super.find(params)
   }
 
   async get (id: string, params?: Params) {
@@ -96,9 +102,5 @@ export class BaseService<Type extends BaseData> extends Service<Type> {
   async remove (id: number, params?: Params) {
     this.logInfo('DELETE', id, params)
     return super.remove(id, params)
-  }
-
-  setup (app: Application, _path: string): void {
-    this.optionsService = app.service('/api/options')
   }
 }

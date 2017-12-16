@@ -11,7 +11,6 @@ import { BotAddFormErrors, BotAddFormProps, BotAddFormValues } from 'components/
 
 const enhance = withFormik<BotAddFormProps, BotAddFormValues>({
   mapPropsToValues: () => ({
-    owner: '',
     description: '',
     picture: '',
     title: ''
@@ -22,9 +21,6 @@ const enhance = withFormik<BotAddFormProps, BotAddFormValues>({
     const errors: BotAddFormErrors = {}
     if (!values.description) {
       errors.description = 'Description is required!'
-    }
-    if (!values.owner) {
-      errors.owner = 'Owner is required!'
     }
     if (!values.picture) {
       errors.picture = 'Image is required!'
@@ -80,15 +76,6 @@ export const BotAddForm = enhance((props) => {
         name='picture'
         id='picture'
         placeholder='Ссылка на изображение'
-        mt={ 3 }
-      />
-      <Input
-        onChange={ handleChange }
-        value={ values.owner }
-        onBlur={ handleBlur }
-        name='owner'
-        id='owner'
-        placeholder='Bot'
         mt={ 3 }
       />
       <Textarea

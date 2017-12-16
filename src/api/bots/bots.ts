@@ -25,6 +25,7 @@ export const botsService = (): any =>
       default: 50,
       max: 50
     },
+    incremental: true,
     serviceName: botsServiceName,
     Model: db
   })

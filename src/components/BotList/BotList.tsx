@@ -41,7 +41,6 @@ export const BotList = enhance((props) => (
       return (
         <Box w={ '100%' } mt={ 3 } key={ bot._id }>
           <ListItem link={ `/bots/${bot._id}` } title={ bot.title } imageSrc={ bot.picture }>
-            <Text>Owner: { bot.owner }</Text>
             <Text>
               <Link to={ `/users/${bot._id}` }>Bot users</Link>
             </Text>
