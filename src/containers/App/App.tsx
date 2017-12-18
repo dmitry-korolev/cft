@@ -40,6 +40,7 @@ export const App: StatelessComponent = () => (
           <Switch>
             <Route path='/bots/add' component={ BotAdd } />
             <Route path='/bots/:botId' component={ Bot } />
+            <Route path='/users/add' component={ BotAdd } />
           </Switch>
         </Box>
         <Box order={ 0 } px={ 2 } flex={ '0 0 auto' } w={ sidebarWidth }>

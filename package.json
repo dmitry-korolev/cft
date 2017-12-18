@@ -38,7 +38,6 @@
   },
   "homepage": "https://github.com/dmitry-korolev/korolev.dk#readme",
   "dependencies": {
-    "@types/recompose": "^0.24.4",
     "babel-polyfill": "^6.26.0",
     "babel-runtime": "^6.26.0",
     "compression": "^1.7.1",
@@ -85,6 +84,7 @@
     "@types/react-helmet": "^5.0.3",
     "@types/react-redux": "^5.0.14",
     "@types/react-router-dom": "^4.2.3",
+    "@types/recompose": "^0.24.4",
     "@types/redux-logger": "^3.0.5",
     "@types/serve-favicon": "^2.2.30",
     "@types/webpack": "^3.8.1",

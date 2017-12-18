@@ -86,10 +86,11 @@ declare module 'rebass' {
     to?: string
   }>
 
-  export const Link: SC<{
-    href?: string
-    to?: string
-  }>
+  export const Link: SC<
+    {
+      to?: string
+    } & HTMLProps<HTMLAnchorElement>
+  >
 
   export const Heading: SC<{
     left: boolean

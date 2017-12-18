@@ -7,17 +7,20 @@ import { dispatchWillMount } from 'utils/hoc/dispatchWillMount/dispatchWillMount
 // Components
 import { AddListItem } from 'components/AddListItem/AddListItem'
 import { ListItem } from 'components/ListItem/ListItem'
-import { Box, Flex } from 'rebass'
+import { Box, Flex, Link } from 'rebass'
 
 // Actions
-import { reloadUsersCurrentPage } from 'store/users/actions'
+import { loadUsersNextPage, loadUsersPrevPage, reloadUsersCurrentPage } from 'store/users/actions'
 
 // Models
 import { UserListProps } from 'components/UserList/UserList.h'
 import { UserListLoader } from 'components/UserList/UserListLoader'
 import { State } from 'store/store.h'
 
-const connectToStore = connect((store: State) => store.users)
+const connectToStore = connect((store: State) => store.users, {
+  loadUsersNextPage,
+  loadUsersPrevPage
+})
 
 const showLoader = branch(
   (props: UserListProps) => !!props.isLoading,
@@ -43,5 +46,9 @@ export const UserList = enhance((props) => (
         </Box>
       )
     }) }
+    <Box>
+      { !!props.nextPageUrl && <Link onClick={ props.loadUsersNextPage }>Вперед</Link> }
+      { !!props.previousPageUrl && <Link onClick={ props.loadUsersPrevPage }>Назад</Link> }
+    </Box>
   </Flex>
 ))
