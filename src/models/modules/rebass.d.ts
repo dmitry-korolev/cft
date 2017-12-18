@@ -105,6 +105,7 @@ declare module 'rebass' {
   export const Input: SC<HTMLProps<HTMLInputElement>>
   export const Select: SC<HTMLProps<HTMLSelectElement>>
   export const Textarea: SC<HTMLProps<HTMLTextAreaElement>>
+  export const Radio: SC<HTMLProps<HTMLInputElement>>
 
   export const Truncate: SC<{}>
   export const Card: SC<{}>

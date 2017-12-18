@@ -5,12 +5,12 @@ import React from 'react'
 import { omitBaseData } from 'api/utils/omitBaseData'
 import { FormError, FormInputContainer, FormLabel } from 'components/Form/Form.s'
 import { UserFormErrors, UserFormOwnProps, UserFormValues } from 'components/UserForm/UserForm.h'
-import { Button, Input } from 'rebass'
+import { Button, Input, Label, Radio } from 'rebass'
 
 const enhance = withFormik<UserFormOwnProps, UserFormValues>({
   mapPropsToValues: (props) =>
     omitBaseData(props.initialValues) || {
-      gender: '',
+      gender: null,
       name: '',
       location: {
         street: '',
@@ -55,8 +55,8 @@ export const UserForm = enhance((props) => {
         <FormInputContainer>
           <Input
             onChange={ handleChange }
-            value={ values.name }
             onBlur={ handleBlur }
+            value={ values.name }
             name='name'
             id='name'
             placeholder='Имя пользователя'
@@ -77,6 +77,34 @@ export const UserForm = enhance((props) => {
             placeholder='Ссылка на изображение'
             w={ 400 }
           />
+          { touched.avatarUrl && errors.avatarUrl && <FormError>{ errors.avatarUrl }</FormError> }
+        </FormInputContainer>
+      </FormLabel>
+      <FormLabel mt={ 3 }>
+        Пол:
+        <FormInputContainer>
+          <Label>
+            <Radio
+              onChange={ handleChange }
+              onBlur={ handleBlur }
+              name='gender'
+              id='gender'
+              value='male'
+              defaultChecked={ values.gender === 'male' }
+            />
+            Мужской
+          </Label>
+          <Label>
+            <Radio
+              onChange={ handleChange }
+              onBlur={ handleBlur }
+              name='gender'
+              id='gender'
+              value='female'
+              defaultChecked={ values.gender === 'female' }
+            />
+            Женский
+          </Label>
           { touched.avatarUrl && errors.avatarUrl && <FormError>{ errors.avatarUrl }</FormError> }
         </FormInputContainer>
       </FormLabel>

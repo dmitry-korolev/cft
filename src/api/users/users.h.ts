@@ -6,7 +6,7 @@ export enum UserLevel {
 }
 
 export interface UserData {
-  gender: string
+  gender: null | 'male' | 'female' // Пока остановимся на двух.
   name: string
   location: {
     street: string
