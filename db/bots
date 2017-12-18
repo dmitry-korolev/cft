@@ -1,6 +1,4 @@
-{"description":"Lorem ipsum","picture":"https://placeimg.com/64/64/tech","title":"Бот v1","_id":"4geJMPFuIdlNfsEG","createdAt":{"$$date":1513607409893},"updatedAt":{"$$date":1513607409893}}
+{"description":"Lorem ipsum","picture":"https://placeimg.com/64/64/cats","title":"Бот v1","createdAt":{"$$date":1513607409893},"updatedAt":{"$$date":1513619005773},"_id":"4geJMPFuIdlNfsEG"}
 {"description":"Lorem ipsum dolor sit amet","picture":"https://placeimg.com/64/64/tech","title":"Бот v2.1","createdAt":{"$$date":1513607605741},"updatedAt":{"$$date":1513607637964},"_id":"4wgsxgh762Xa0taM"}
 {"description":"Описание \nОписание","picture":"https://placeimg.com/64/64/tech","title":"Бот v4.2","createdAt":{"$$date":1513608511491},"updatedAt":{"$$date":1513614183291},"_id":"OVZruKo0GVaEhwj3"}
 {"description":"Lorem ipsum dolor sit amet и что там дальше, я уже не помню","picture":"https://placeimg.com/64/64/tech","title":"Бот v3","createdAt":{"$$date":1513607696247},"updatedAt":{"$$date":1513607703902},"_id":"wG6HfDJBSlLQUAmF"}
-{"description":"Lorem ipsum","picture":"https://placeimg.com/64/64/","title":"Бот v1","createdAt":{"$$date":1513607409893},"updatedAt":{"$$date":1513618999652},"_id":"4geJMPFuIdlNfsEG"}
-{"description":"Lorem ipsum","picture":"https://placeimg.com/64/64/cats","title":"Бот v1","createdAt":{"$$date":1513607409893},"updatedAt":{"$$date":1513619005773},"_id":"4geJMPFuIdlNfsEG"}
