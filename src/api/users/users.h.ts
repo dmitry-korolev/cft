@@ -5,7 +5,7 @@ export enum UserLevel {
   ADMIN = 50
 }
 
-export interface UserData extends BaseData {
+export interface UserData {
   gender: string
   name: string
   location: {
@@ -22,3 +22,5 @@ export interface UserData extends BaseData {
   level: UserLevel
   botIds: string[]
 }
+
+export type UserDataFull = UserData & BaseData

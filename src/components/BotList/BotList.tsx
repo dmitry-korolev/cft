@@ -42,7 +42,7 @@ export const BotList = enhance((props) => (
         <Box w={ '100%' } mt={ 3 } key={ bot._id }>
           <ListItem link={ `/bots/${bot._id}` } title={ bot.title } imageSrc={ bot.picture }>
             <Text>
-              <Link to={ `/users/${bot._id}` }>Bot users</Link>
+              <Link to={ `/users/?botId=${bot._id}` }>Bot users</Link>
             </Text>
           </ListItem>
         </Box>
