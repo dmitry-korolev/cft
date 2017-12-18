@@ -14,7 +14,8 @@ export const usersServiceName = 'users'
 
 const db: NeDB = new NeDB({
   filename: dbPath(usersServiceName),
-  autoload: true
+  autoload: true,
+  timestampData: true
 })
 
 class UsersService extends BaseService<UserData> {
@@ -41,6 +42,7 @@ export const usersService = (): any =>
       default: 50,
       max: 50
     },
+    incremental: true,
     serviceName: usersServiceName,
     validator: validateUser,
     Model: db
