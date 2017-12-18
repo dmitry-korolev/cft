@@ -12,6 +12,7 @@
   ],
   "rules": {
     "object-literal-sort-keys": false,
+    "object-literal-key-quotes": [true, "as-needed"],
     "no-unused-variable": false,
     "interface-name": false,
     "max-line-length": [

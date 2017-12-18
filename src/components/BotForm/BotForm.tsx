@@ -2,23 +2,18 @@ import { withFormik } from 'formik'
 import React from 'react'
 import { Button, Input, Textarea } from 'rebass'
 
-// Utils
-import { botsServiceName } from 'api/bots/bots'
-import { apiEndpoint } from 'api/utils/apiEndpoint'
+import { BotFormErrors, BotFormProps, BotFormValues } from 'components/BotForm/BotForm.h'
 
-// Models
-import { BotAddFormErrors, BotAddFormProps, BotAddFormValues } from 'components/BotAdd/BotAddForm.h'
+const enhance = withFormik<BotFormProps, BotFormValues>({
+  mapPropsToValues: (props) =>
+    props.initialValues || {
+      description: '',
+      picture: '',
+      title: ''
+    },
 
-const enhance = withFormik<BotAddFormProps, BotAddFormValues>({
-  mapPropsToValues: () => ({
-    description: '',
-    picture: '',
-    title: ''
-  }),
-
-  // Custom sync validation
-  validate: (values: BotAddFormValues) => {
-    const errors: BotAddFormErrors = {}
+  validate: (values: BotFormValues) => {
+    const errors: BotFormErrors = {}
     if (!values.description) {
       errors.description = 'Description is required!'
     }
@@ -31,30 +26,14 @@ const enhance = withFormik<BotAddFormProps, BotAddFormValues>({
     return errors
   },
 
-  handleSubmit: async (values, props) => {
-    return fetch(apiEndpoint(botsServiceName), {
-      method: 'POST',
-      body: JSON.stringify(values),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(() => {
-        props.resetForm()
-        props.setSubmitting(false)
-        props.props.onSubmit()
-      })
-      .catch((error) => {
-        props.setSubmitting(false)
-        props.props.onError(error)
-      })
+  handleSubmit: (values, bag) => {
+    bag.props.onSubmit(values, bag)
   },
 
-  displayName: 'BotAddForm'
+  displayName: 'BotForm'
 })
 
-export const BotAddForm = enhance((props) => {
+export const BotForm = enhance((props) => {
   const { handleChange, handleBlur, handleSubmit, values, isSubmitting, touched, errors } = props
 
   return (

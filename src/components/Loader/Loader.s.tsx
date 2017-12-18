@@ -1,14 +1,14 @@
 import styled, { keyframes } from 'styled-components'
 
 const rotate = keyframes`
-  100%{
-    transform: rotate(calc(90deg + 45deg))
+  100% {
+    transform: rotate(calc(90deg + 45deg));
   }
 `
 
 const move = keyframes`
-  50%{
-    transform: translate(-30px,-30px)
+  50% {
+    transform: translate(-30px, -30px);
   }
 `
 

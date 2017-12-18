@@ -1,6 +1,5 @@
-import { loadBotsFail, loadBotsNextPage } from 'store/bots/actions'
+import { saveBot } from 'store/bots/actions'
 
 export interface BotAddDispatchProps {
-  loadBotsNextPage: typeof loadBotsNextPage
-  loadBotsFail: typeof loadBotsFail
+  saveBot: typeof saveBot
 }
