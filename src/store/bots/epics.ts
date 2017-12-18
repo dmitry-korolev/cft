@@ -26,7 +26,9 @@ import { Epic } from 'store/store.h'
 const reloadCurrentBots: Epic = (action$, store) =>
   action$.thru(select(reloadBotsCurrentPage.getType())).chain(() => {
     return fromPromise(
-      fetch(store.getState().bots.currentPageUrl).then(async (result) => result.json())
+      fetch(`${apiEndpoint(botsServiceName)}/${store.getState().bots.currentPageUrl}`).then(
+        async (result) => result.json()
+      )
     )
       .map((result: ApiResponce<BotData>) => loadBotsSuccess(result))
       .recoverWith((error) => of(loadBotsFail(error)))

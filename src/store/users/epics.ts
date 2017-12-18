@@ -27,7 +27,9 @@ import { Epic } from 'store/store.h'
 const reloadCurrentUsers: Epic = (action$, store) =>
   action$.thru(select(reloadUsersCurrentPage.getType())).chain(() => {
     return fromPromise(
-      fetch(store.getState().users.currentPageUrl).then(async (result) => result.json())
+      fetch(`${apiEndpoint(usersServiceName)}/${store.getState().users.currentPageUrl}`).then(
+        async (result) => result.json()
+      )
     )
       .map((result: ApiResponce<UserData>) => loadUsersSuccess(result))
       .recoverWith((error) => of(loadUsersFail(error)))

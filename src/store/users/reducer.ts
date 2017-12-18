@@ -13,8 +13,6 @@ import {
 } from 'store/users/actions'
 
 // Utils
-import { usersServiceName } from 'api/users/users'
-import { apiEndpoint } from 'api/utils/apiEndpoint'
 import { createReducer } from 'redux-act'
 
 // Models
@@ -24,7 +22,7 @@ import { UsersState } from 'store/users/reducer.h'
 
 const initialState = {
   users: [],
-  currentPageUrl: apiEndpoint(usersServiceName)
+  currentPageUrl: ''
 }
 
 export const usersReducer = createReducer<UsersState>(

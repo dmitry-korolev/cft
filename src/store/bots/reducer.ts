@@ -13,8 +13,6 @@ import {
 } from 'store/bots/actions'
 
 // Utils
-import { botsServiceName } from 'api/bots/bots'
-import { apiEndpoint } from 'api/utils/apiEndpoint'
 import { createReducer } from 'redux-act'
 
 // Models
@@ -24,7 +22,7 @@ import { BotsState } from 'store/bots/reducer.h'
 
 const initialState = {
   bots: [],
-  currentPageUrl: apiEndpoint(botsServiceName)
+  currentPageUrl: ''
 }
 
 export const botsReducer = createReducer<BotsState>(
