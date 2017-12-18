@@ -18,14 +18,15 @@ interface CreateServiceOptions extends ServiceOptions {
 }
 
 export interface BaseData {
-  _created: Date
+  createdAt: Date
+  updatedAt: Date
   _id: string
 }
 
 const sortL = lens(path(['query', '$sort']), assocPath(['query', '$sort']))
 const viewSort = view(sortL)
 const setSort = set(sortL, {
-  _created: -1
+  createdAt: '-1'
 })
 
 export class BaseService<Type extends BaseData> extends Service<Type> {
@@ -67,36 +68,27 @@ export class BaseService<Type extends BaseData> extends Service<Type> {
       throw new Unprocessable('Check data!', this.validator.errors)
     }
 
-    data._created = new Date()
     this.logInfo('POST', data, params)
 
     // Any is OK here
     return super.create(data, params)
   }
 
-  async update (id: string, data: any, params?: Params) {
-    const entity = await this.get(id, params)
-    const valid = this.validator(merge(entity, data))
+  async update (id: string, data: Partial<Type>, params?: Params) {
+    const entity = await super.get(id, params)
+    const newData = merge(entity, data)
+    const valid = this.validator(newData)
 
     if (!valid) {
       throw new Unprocessable('Check data!', this.validator.errors)
     }
 
-    data._updated = new Date()
-    this.logInfo('PUT', id, data, params)
-    return super.update(id, data, params)
+    this.logInfo('PUT', id, newData, params)
+    return super.update(id, newData, params)
   }
 
-  async patch (id: string, data: any, params?: Params) {
-    const entity = await this.get(id, params)
-    const valid = this.validator(merge(entity, data))
-
-    if (!valid) {
-      throw new Unprocessable('Check data!', this.validator.errors)
-    }
-
-    this.logInfo('PATCH', id, data, params)
-    return super.patch(id, data, params)
+  async patch (id: string, data: Partial<Type>, params?: Params) {
+    return this.update(id, data, params)
   }
 
   async remove (id: number, params?: Params) {

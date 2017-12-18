@@ -1,9 +1,11 @@
-import { BotData } from 'api/bots/bots.h'
+import { BotData, BotDataFull } from 'api/bots/bots.h'
 import { FormikBag } from 'formik'
 
-export interface BotFormProps {
-  onSubmit: (values: BotData, meta: FormikBag<{}, BotData>) => void
-  initialValues?: BotData
+export interface BotFormOwnProps {
+  onSubmit: (values: BotData, meta: FormikBag<{}, BotData>, id?: string) => void
+  initialValues?: BotDataFull
+  id?: string
+  buttonText: string
 }
 
 export type BotFormValues = BotData

@@ -2,11 +2,11 @@ import { withFormik } from 'formik'
 import React from 'react'
 
 // Components
-import { BotFormErrors, BotFormProps, BotFormValues } from 'components/BotForm/BotForm.h'
+import { BotFormErrors, BotFormOwnProps, BotFormValues } from 'components/BotForm/BotForm.h'
 import { FormError, FormInputContainer, FormLabel } from 'components/Form/Form.s'
 import { Button, Input, Textarea } from 'rebass'
 
-const enhance = withFormik<BotFormProps, BotFormValues>({
+const enhance = withFormik<BotFormOwnProps, BotFormValues>({
   mapPropsToValues: (props) =>
     props.initialValues || {
       description: '',
@@ -29,7 +29,7 @@ const enhance = withFormik<BotFormProps, BotFormValues>({
   },
 
   handleSubmit: (values, bag) => {
-    bag.props.onSubmit(values, bag)
+    bag.props.onSubmit(values, bag, bag.props.id)
   },
 
   displayName: 'BotForm'
@@ -84,7 +84,7 @@ export const BotForm = enhance((props) => {
         </FormInputContainer>
       </FormLabel>
       <Button type='submit' mt={ 3 } disabled={ isSubmitting }>
-        Добавить
+        { props.buttonText }
       </Button>
     </form>
   )

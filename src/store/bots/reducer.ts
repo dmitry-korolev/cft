@@ -5,7 +5,10 @@ import {
   loadBotsFail,
   loadBotsNextPage,
   loadBotsPrevPage,
-  loadBotsSuccess
+  loadBotsSuccess,
+  saveBot,
+  updateBot,
+  UpdateBotMeta
 } from 'store/bots/actions'
 
 // Utils
@@ -14,7 +17,7 @@ import { apiEndpoint } from 'api/utils/apiEndpoint'
 import { createReducer } from 'redux-act'
 
 // Models
-import { BotDataFull } from 'api/bots/bots.h'
+import { BotData, BotDataFull } from 'api/bots/bots.h'
 import { ApiResponce } from 'models/api/responce'
 import { BotsState } from 'store/bots/reducer.h'
 
@@ -44,6 +47,22 @@ export const botsReducer = createReducer<BotsState>(
       merge(state, {
         isLoading: false,
         error
+      }),
+    [saveBot.getType()]: (state, payload: BotData) =>
+      merge(state, {
+        bots: [payload, ...state.bots],
+        isLoading: true
+      }),
+    [updateBot.getType()]: (state, payload: BotData, meta: UpdateBotMeta) =>
+      merge(state, {
+        bots: state.bots.map((bot) => {
+          if (bot._id === meta.id) {
+            return merge(bot, payload)
+          }
+
+          return bot
+        }),
+        isLoading: true
       })
   },
   initialState

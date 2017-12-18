@@ -12,7 +12,8 @@ export const botsServiceName = 'bots'
 
 const db: NeDB = new NeDB({
   filename: dbPath(botsServiceName),
-  autoload: true
+  autoload: true,
+  timestampData: true
 })
 
 class BotsService extends BaseService<BotDataFull> {

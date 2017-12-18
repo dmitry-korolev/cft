@@ -21,7 +21,7 @@ export const BotAdd = enhance((props) => {
   return (
     <Box mt={ 3 }>
       <Heading center>Добавление нового бота</Heading>
-      <BotForm onSubmit={ props.saveBot } />
+      <BotForm onSubmit={ props.saveBot } buttonText='Добавить' />
     </Box>
   )
 })

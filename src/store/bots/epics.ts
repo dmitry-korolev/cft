@@ -1,14 +1,21 @@
 // Utils
 import { botsServiceName } from 'api/bots/bots'
 import { apiEndpoint } from 'api/utils/apiEndpoint'
-import { fromPromise, of } from 'most'
+import { fromPromise, merge, of } from 'most'
 import { combineEpics, select } from 'redux-most'
 
 // Actions
-import { loadBotsFail, loadBotsNextPage, loadBotsSuccess, saveBot } from 'store/bots/actions'
+import {
+  loadBotsFail,
+  loadBotsNextPage,
+  loadBotsSuccess,
+  saveBot,
+  updateBot,
+  UpdateBotMeta
+} from 'store/bots/actions'
 
 // Models
-import { BotData } from 'api/bots/bots.h'
+import { BotData, BotDataFull } from 'api/bots/bots.h'
 import { FormikBag } from 'formik'
 import { ApiResponce } from 'models/api/responce'
 import { Action } from 'redux-act'
@@ -48,5 +55,35 @@ const saveBotEpic: Epic = (action$) =>
         })
     })
 
+const updateBotEpic: Epic = (action$) =>
+  action$
+    .thru(select(updateBot.getType()))
+    .chain(({ payload, meta }: Action<BotDataFull, UpdateBotMeta>) => {
+      return fromPromise(
+        fetch(`${apiEndpoint(botsServiceName)}/${meta!.id}`, {
+          method: 'PUT',
+          body: JSON.stringify(payload),
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          }
+        })
+      )
+        .map<Action<any, any>>(() => {
+          meta!.bag.resetForm()
+
+          return loadBotsNextPage()
+        })
+        .recoverWith((error) => {
+          meta!.bag.setSubmitting(false)
+
+          return merge<any>(of(loadBotsFail(error)), of(loadBotsNextPage()))
+        })
+    })
+
 // В общем, для TS redux-most в продакшн пока не катит, тайпинги отбитые просто
-export const botsEpic = combineEpics([loadNextBotsEpic as any, saveBotEpic as any])
+export const botsEpic = combineEpics([
+  loadNextBotsEpic as any,
+  saveBotEpic as any,
+  updateBotEpic as any
+])
