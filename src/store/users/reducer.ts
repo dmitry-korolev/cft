@@ -46,7 +46,7 @@ export const usersReducer = createReducer<UsersState>(
     [loadUsersSuccess.getType()]: (state, payload: ApiResponce<UserDataFull>) => ({
       users: payload.result,
       currentPageUrl: state.currentPageUrl,
-      nextPageUrl: payload.nextPageUrl || state.nextPageUrl,
+      nextPageUrl: payload.nextPageUrl,
       previousPageUrl: payload.previousPageUrl,
       isLoading: false,
       error: null

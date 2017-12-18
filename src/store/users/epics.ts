@@ -2,12 +2,14 @@
 import { usersServiceName } from 'api/users/users'
 import { apiEndpoint } from 'api/utils/apiEndpoint'
 import { fromPromise, merge, of } from 'most'
+import { isNil } from 'ramda'
 import { combineEpics, select } from 'redux-most'
 
 // Actions
 import {
   loadUsersFail,
   loadUsersNextPage,
+  loadUsersPrevPage,
   loadUsersSuccess,
   reloadUsersCurrentPage,
   saveUser,
@@ -33,11 +35,13 @@ const reloadCurrentUsers: Epic = (action$, store) =>
 
 const loadNextUsersEpic: Epic = (action$, store) =>
   action$
-    .filter(() => !!store.getState().users.nextPageUrl)
     .thru(select(loadUsersNextPage.getType()))
+    .filter(() => !isNil(store.getState().users.nextPageUrl))
     .chain(() => {
       return fromPromise(
-        fetch(store.getState().users.nextPageUrl!).then(async (result) => result.json())
+        fetch(`${apiEndpoint(usersServiceName)}/?${store.getState().users.nextPageUrl!}`).then(
+          async (result) => result.json()
+        )
       )
         .map((result: ApiResponce<UserData>) => loadUsersSuccess(result))
         .recoverWith((error) => of(loadUsersFail(error)))
@@ -45,11 +49,13 @@ const loadNextUsersEpic: Epic = (action$, store) =>
 
 const loadPrevUsersEpic: Epic = (action$, store) =>
   action$
-    .filter(() => !!store.getState().users.previousPageUrl)
-    .thru(select(loadUsersNextPage.getType()))
+    .thru(select(loadUsersPrevPage.getType()))
+    .filter(() => !isNil(store.getState().users.previousPageUrl))
     .chain(() => {
       return fromPromise(
-        fetch(store.getState().users.previousPageUrl!).then(async (result) => result.json())
+        fetch(`${apiEndpoint(usersServiceName)}/?${store.getState().users.previousPageUrl!}`).then(
+          async (result) => result.json()
+        )
       )
         .map((result: ApiResponce<UserData>) => loadUsersSuccess(result))
         .recoverWith((error) => of(loadUsersFail(error)))

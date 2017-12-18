@@ -2,6 +2,7 @@
 import { botsServiceName } from 'api/bots/bots'
 import { apiEndpoint } from 'api/utils/apiEndpoint'
 import { fromPromise, merge, of } from 'most'
+import { isNil } from 'ramda'
 import { combineEpics, select } from 'redux-most'
 
 // Actions
@@ -33,11 +34,13 @@ const reloadCurrentBots: Epic = (action$, store) =>
 
 const loadNextBotsEpic: Epic = (action$, store) =>
   action$
-    .filter(() => !!store.getState().bots.nextPageUrl)
     .thru(select(loadBotsNextPage.getType()))
+    .filter(() => !isNil(store.getState().bots.nextPageUrl))
     .chain(() => {
       return fromPromise(
-        fetch(store.getState().bots.nextPageUrl!).then(async (result) => result.json())
+        fetch(`${apiEndpoint(botsServiceName)}/?${store.getState().bots.nextPageUrl!}`).then(
+          async (result) => result.json()
+        )
       )
         .map((result: ApiResponce<BotData>) => loadBotsSuccess(result))
         .recoverWith((error) => of(loadBotsFail(error)))
@@ -45,11 +48,13 @@ const loadNextBotsEpic: Epic = (action$, store) =>
 
 const loadPrevBotsEpic: Epic = (action$, store) =>
   action$
-    .filter(() => !!store.getState().bots.previousPageUrl)
     .thru(select(loadBotsNextPage.getType()))
+    .filter(() => !isNil(store.getState().bots.previousPageUrl))
     .chain(() => {
       return fromPromise(
-        fetch(store.getState().bots.previousPageUrl!).then(async (result) => result.json())
+        fetch(`${apiEndpoint(botsServiceName)}/?${store.getState().bots.previousPageUrl!}`).then(
+          async (result) => result.json()
+        )
       )
         .map((result: ApiResponce<BotData>) => loadBotsSuccess(result))
         .recoverWith((error) => of(loadBotsFail(error)))

@@ -6,6 +6,8 @@ declare module 'grommet-icons' {
 
   export const Add: Icon
   export const FormEdit: Icon
+  export const FormNextLink: Icon
+  export const FormPreviousLink: Icon
   export const Robot: Icon
   export const User: Icon
 }

@@ -7,27 +7,26 @@ import { Link } from 'react-router-dom'
 import { Heading, Image, Media, Text } from 'rebass'
 
 // Models
-import { BotPageProps } from 'components/BotPage/BotPage.h'
+import { UserPageProps } from 'components/UserPage/UserPage.h'
 import { NavigationProps } from 'containers/App/App.h'
 import { RouteComponentProps } from 'react-router'
 import { State } from 'store/store.h'
 
 const connectToStore = connect(
   (state: State, ownProps: RouteComponentProps<NavigationProps>) =>
-    state.bots.bots.find((bot) => bot._id === ownProps.match.params.botId) || {}
+    state.users.users.find((user) => user._id === ownProps.match.params.userId) || {}
 )
-const enhance = compose<BotPageProps, {}>(connectToStore, setDisplayName('BotPage'))
+const enhance = compose<UserPageProps, {}>(connectToStore, setDisplayName('UserPage'))
 
-export const BotPage = enhance((props) => {
+export const UserPage = enhance((props) => {
   return (
     <div>
       <Media mt={ 3 } w={ '100%' }>
-        <Image mr={ 3 } width={ 64 } height={ 64 } src={ props.picture } />
-        <Heading>{ props.title }</Heading>
+        <Image mr={ 3 } width={ 64 } height={ 64 } src={ props.avatarUrl } />
+        <Heading>{ props.name }</Heading>
       </Media>
-      <Text mt={ 3 }>{ props.description }</Text>
       <Text>
-        <Link to={ `/bots/${props._id}/edit` }>Редактировать</Link>
+        <Link to={ `/users/${props._id}/edit` }>Редактировать</Link>
       </Text>
     </div>
   )

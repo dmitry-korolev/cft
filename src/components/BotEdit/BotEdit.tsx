@@ -28,7 +28,7 @@ const enhance = compose<BotEditProps, {}>(connectToState, setDisplayName('BotEdi
 export const BotEdit = enhance((props) => {
   return props.bot ? (
     <Box mt={ 3 }>
-      <Heading center>Редактировать бота { props.bot.title }</Heading>
+      <Heading center>Редактирование бота { props.bot.title }</Heading>
       <BotForm
         onSubmit={ props.updateBot }
         initialValues={ props.bot }

@@ -1,4 +1,5 @@
 // Utils
+import { isNil } from 'ramda'
 import React from 'react'
 import { connect } from 'react-redux'
 import { branch, compose, renderComponent, setDisplayName } from 'recompose'
@@ -7,7 +8,9 @@ import { dispatchWillMount } from 'utils/hoc/dispatchWillMount/dispatchWillMount
 // Components
 import { AddListItem } from 'components/AddListItem/AddListItem'
 import { ListItem } from 'components/ListItem/ListItem'
-import { Box, Flex, Link } from 'rebass'
+import { UserListNav, UserListNext, UserListPrev } from 'components/UserList/UserList.s'
+import { Link } from 'react-router-dom'
+import { Box, Flex, Text } from 'rebass'
 
 // Actions
 import { loadUsersNextPage, loadUsersPrevPage, reloadUsersCurrentPage } from 'store/users/actions'
@@ -46,9 +49,21 @@ export const UserList = enhance((props) => (
         </Box>
       )
     }) }
-    <Box>
-      { !!props.nextPageUrl && <Link onClick={ props.loadUsersNextPage }>Вперед</Link> }
-      { !!props.previousPageUrl && <Link onClick={ props.loadUsersPrevPage }>Назад</Link> }
-    </Box>
+    <UserListNav w={ '100%' } mt={ 3 }>
+      <Text>
+        { !isNil(props.previousPageUrl) && (
+          <Link onClick={ props.loadUsersPrevPage } to='/users'>
+            <UserListPrev /> Назад
+          </Link>
+        ) }
+      </Text>
+      <Text>
+        { !isNil(props.nextPageUrl) && (
+          <Link onClick={ props.loadUsersNextPage } to='/users'>
+            Вперед <UserListNext />
+          </Link>
+        ) }
+      </Text>
+    </UserListNav>
   </Flex>
 ))

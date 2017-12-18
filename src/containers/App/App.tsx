@@ -7,6 +7,8 @@ import { BotAdd } from 'components/BotAdd/BotAdd'
 import { BotList } from 'components/BotList/BotList'
 import { Sidebar } from 'components/Sidebar/Sidebar'
 import { TopBar } from 'components/TopBar/TopBar'
+import { User } from 'components/User/User'
+import { UserAdd } from 'components/UserAdd/UserAdd'
 import { UserList } from 'components/UserList/UserList'
 import { Route, Switch } from 'react-router-dom'
 import { Box, Container, Flex, Provider } from 'rebass'
@@ -40,7 +42,8 @@ export const App: StatelessComponent = () => (
           <Switch>
             <Route path='/bots/add' component={ BotAdd } />
             <Route path='/bots/:botId' component={ Bot } />
-            <Route path='/users/add' component={ BotAdd } />
+            <Route path='/users/add' component={ UserAdd } />
+            <Route path='/users/:userId' component={ User } />
           </Switch>
         </Box>
         <Box order={ 0 } px={ 2 } flex={ '0 0 auto' } w={ sidebarWidth }>
