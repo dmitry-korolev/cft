@@ -26,21 +26,6 @@
             "items": {
                 "type": "string"
             }
-        },
-        "location": {
-            "type": "object",
-            "properties": {
-                "street": {
-                    "type": "string"
-                },
-                "city": {
-                    "type": "string"
-                },
-                "state": {
-                    "type": "string"
-                },
-                "postcode": true
-            }
         }
     },
     "type": "object"

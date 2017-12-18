@@ -12,12 +12,6 @@ const enhance = withFormik<UserFormOwnProps, UserFormValues>({
     omitBaseData(props.initialValues) || {
       gender: null,
       name: '',
-      location: {
-        street: '',
-        city: '',
-        state: '',
-        postcode: ''
-      },
       email: '',
       dob: '',
       phone: '',
@@ -61,7 +55,6 @@ export const UserForm = enhance((props) => {
             name='name'
             id='name'
             placeholder='Имя пользователя'
-            w={ 400 }
           />
           { touched.name && errors.name && <FormError>{ errors.name }</FormError> }
         </FormInputContainer>
@@ -76,7 +69,6 @@ export const UserForm = enhance((props) => {
             name='avatarUrl'
             id='avatarUrl'
             placeholder='Ссылка на изображение'
-            w={ 400 }
           />
           { touched.avatarUrl && errors.avatarUrl && <FormError>{ errors.avatarUrl }</FormError> }
         </FormInputContainer>
@@ -91,7 +83,6 @@ export const UserForm = enhance((props) => {
             name='email'
             id='email'
             placeholder='Ссылка на изображение'
-            w={ 400 }
           />
           { touched.email && errors.email && <FormError>{ errors.email }</FormError> }
         </FormInputContainer>
@@ -106,7 +97,6 @@ export const UserForm = enhance((props) => {
             name='phone'
             id='phone'
             placeholder='Ссылка на изображение'
-            w={ 400 }
           />
           { touched.phone && errors.phone && <FormError>{ errors.phone }</FormError> }
         </FormInputContainer>

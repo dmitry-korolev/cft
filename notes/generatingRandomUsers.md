@@ -11,7 +11,6 @@ const generateUsers = (count, botIds) => {
       gender: data.gender,
       name: `${data.name.first} ${data.name.last}`,
       avatarUrl: data.picture.medium,
-      location: data.location,
       email: data.email,
       dob: data.dob,
       phone: data.phone,
