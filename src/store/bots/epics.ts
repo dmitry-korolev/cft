@@ -9,6 +9,7 @@ import {
   loadBotsFail,
   loadBotsNextPage,
   loadBotsSuccess,
+  reloadBotsCurrentPage,
   saveBot,
   updateBot,
   UpdateBotMeta
@@ -21,12 +22,38 @@ import { ApiResponce } from 'models/api/responce'
 import { Action } from 'redux-act'
 import { Epic } from 'store/store.h'
 
-const loadNextBotsEpic: Epic = (action$, store) =>
-  action$.thru(select(loadBotsNextPage.getType())).chain(() => {
-    return fromPromise(fetch(store.getState().bots.nextPageUrl).then(async (result) => result.json()))
+const reloadCurrentBots: Epic = (action$, store) =>
+  action$.thru(select(reloadBotsCurrentPage.getType())).chain(() => {
+    return fromPromise(
+      fetch(store.getState().bots.currentPageUrl).then(async (result) => result.json())
+    )
       .map((result: ApiResponce<BotData>) => loadBotsSuccess(result))
       .recoverWith((error) => of(loadBotsFail(error)))
   })
+
+const loadNextBotsEpic: Epic = (action$, store) =>
+  action$
+    .filter(() => !!store.getState().bots.nextPageUrl)
+    .thru(select(loadBotsNextPage.getType()))
+    .chain(() => {
+      return fromPromise(
+        fetch(store.getState().bots.nextPageUrl!).then(async (result) => result.json())
+      )
+        .map((result: ApiResponce<BotData>) => loadBotsSuccess(result))
+        .recoverWith((error) => of(loadBotsFail(error)))
+    })
+
+const loadPrevBotsEpic: Epic = (action$, store) =>
+  action$
+    .filter(() => !!store.getState().bots.previousPageUrl)
+    .thru(select(loadBotsNextPage.getType()))
+    .chain(() => {
+      return fromPromise(
+        fetch(store.getState().bots.previousPageUrl!).then(async (result) => result.json())
+      )
+        .map((result: ApiResponce<BotData>) => loadBotsSuccess(result))
+        .recoverWith((error) => of(loadBotsFail(error)))
+    })
 
 const saveBotEpic: Epic = (action$) =>
   action$
@@ -44,9 +71,8 @@ const saveBotEpic: Epic = (action$) =>
       )
         .map<Action<any, any>>(() => {
           meta!.resetForm()
-          meta!.setSubmitting(false)
 
-          return loadBotsNextPage()
+          return reloadBotsCurrentPage()
         })
         .recoverWith((error) => {
           meta!.setSubmitting(false)
@@ -72,18 +98,20 @@ const updateBotEpic: Epic = (action$) =>
         .map<Action<any, any>>(() => {
           meta!.bag.resetForm()
 
-          return loadBotsNextPage()
+          return reloadBotsCurrentPage()
         })
         .recoverWith((error) => {
           meta!.bag.setSubmitting(false)
 
-          return merge<any>(of(loadBotsFail(error)), of(loadBotsNextPage()))
+          return merge<any>(of(loadBotsFail(error)), of(reloadBotsCurrentPage()))
         })
     })
 
 // В общем, для TS redux-most в продакшн пока не катит, тайпинги отбитые просто
 export const botsEpic = combineEpics([
+  reloadCurrentBots as any,
   loadNextBotsEpic as any,
+  loadPrevBotsEpic as any,
   saveBotEpic as any,
   updateBotEpic as any
 ])

@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom'
 import { Box, Flex, Text } from 'rebass'
 
 // Actions
-import { loadBotsNextPage } from 'store/bots/actions'
+import { reloadBotsCurrentPage } from 'store/bots/actions'
 
 // Models
 import { BotListProps } from 'components/BotList/BotList.h'
@@ -26,7 +26,7 @@ const showLoader = branch(
 )
 
 const enhance = compose<BotListProps, {}>(
-  dispatchWillMount([loadBotsNextPage()]),
+  dispatchWillMount([reloadBotsCurrentPage()]),
   connectToStore,
   showLoader,
   setDisplayName('BotList')

@@ -6,6 +6,7 @@ import {
   loadBotsNextPage,
   loadBotsPrevPage,
   loadBotsSuccess,
+  reloadBotsCurrentPage,
   saveBot,
   updateBot,
   UpdateBotMeta
@@ -23,21 +24,28 @@ import { BotsState } from 'store/bots/reducer.h'
 
 const initialState = {
   bots: [],
-  nextPageUrl: apiEndpoint(botsServiceName)
+  currentPageUrl: apiEndpoint(botsServiceName)
 }
 
 export const botsReducer = createReducer<BotsState>(
   {
+    [reloadBotsCurrentPage.getType()]: (state) =>
+      merge(state, {
+        isLoading: true
+      }),
     [loadBotsNextPage.getType()]: (state) =>
       merge(state, {
+        currentPageUrl: state.nextPageUrl!,
         isLoading: true
       }),
     [loadBotsPrevPage.getType()]: (state) =>
       merge(state, {
+        currentPageUrl: state.previousPageUrl!,
         isLoading: true
       }),
     [loadBotsSuccess.getType()]: (state, payload: ApiResponce<BotDataFull>) => ({
       bots: payload.result,
+      currentPageUrl: state.currentPageUrl,
       nextPageUrl: payload.nextPageUrl || state.nextPageUrl,
       previousPageUrl: payload.previousPageUrl,
       isLoading: false,
