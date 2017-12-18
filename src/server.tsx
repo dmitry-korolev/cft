@@ -1,5 +1,9 @@
 /* tslint:disable no-var-requires */
 import debug from 'debug'
+import e6p from 'es6-promise'
+import 'isomorphic-fetch'
+
+e6p.polyfill()
 
 // Server
 import bodyParser from 'body-parser'
@@ -8,6 +12,7 @@ import feathers from 'feathers'
 import errorsHandler from 'feathers-errors/handler'
 import hooks from 'feathers-hooks'
 import rest from 'feathers-rest'
+
 // Node
 import path from 'path'
 import favicon from 'serve-favicon'

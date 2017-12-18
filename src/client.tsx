@@ -1,3 +1,10 @@
+// Polyfills
+import e6p from 'es6-promise'
+import 'isomorphic-fetch'
+
+e6p.polyfill()
+
+// Utils
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
