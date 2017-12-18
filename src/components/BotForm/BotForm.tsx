@@ -1,8 +1,10 @@
 import { withFormik } from 'formik'
 import React from 'react'
-import { Button, Input, Textarea } from 'rebass'
 
+// Components
 import { BotFormErrors, BotFormProps, BotFormValues } from 'components/BotForm/BotForm.h'
+import { FormError, FormInputContainer, FormLabel } from 'components/Form/Form.s'
+import { Button, Input, Textarea } from 'rebass'
 
 const enhance = withFormik<BotFormProps, BotFormValues>({
   mapPropsToValues: (props) =>
@@ -15,13 +17,13 @@ const enhance = withFormik<BotFormProps, BotFormValues>({
   validate: (values: BotFormValues) => {
     const errors: BotFormErrors = {}
     if (!values.description) {
-      errors.description = 'Description is required!'
+      errors.description = 'Пожалуйста, введите описание.'
     }
     if (!values.picture) {
-      errors.picture = 'Image is required!'
+      errors.picture = 'Пожалуйста, укажите ссылку на изображение.'
     }
     if (!values.title) {
-      errors.title = 'Title is required!'
+      errors.title = 'Пожалуйста, укажите название бота.'
     }
     return errors
   },
@@ -38,33 +40,49 @@ export const BotForm = enhance((props) => {
 
   return (
     <form onSubmit={ handleSubmit }>
-      <Input
-        onChange={ handleChange }
-        value={ values.title }
-        onBlur={ handleBlur }
-        name='title'
-        id='title'
-        placeholder='Название бота'
-        mt={ 3 }
-      />
-      { touched.title && errors.title && <div>{ errors.title }</div> }
-      <Input
-        onChange={ handleChange }
-        value={ values.picture }
-        onBlur={ handleBlur }
-        name='picture'
-        id='picture'
-        placeholder='Ссылка на изображение'
-        mt={ 3 }
-      />
-      <Textarea
-        onChange={ handleChange }
-        value={ values.description }
-        onBlur={ handleBlur }
-        name='description'
-        id='description'
-        mt={ 3 }
-      />
+      <FormLabel mt={ 3 }>
+        Название бота:
+        <FormInputContainer>
+          <Input
+            onChange={ handleChange }
+            value={ values.title }
+            onBlur={ handleBlur }
+            name='title'
+            id='title'
+            placeholder='Название бота'
+            w={ 400 }
+          />
+          { touched.title && errors.title && <FormError>{ errors.title }</FormError> }
+        </FormInputContainer>
+      </FormLabel>
+      <FormLabel mt={ 3 }>
+        Ссылка на изображение:
+        <FormInputContainer>
+          <Input
+            onChange={ handleChange }
+            value={ values.picture }
+            onBlur={ handleBlur }
+            name='picture'
+            id='picture'
+            placeholder='Ссылка на изображение'
+            w={ 400 }
+          />
+          { touched.picture && errors.picture && <FormError>{ errors.picture }</FormError> }
+        </FormInputContainer>
+      </FormLabel>
+      <FormLabel mt={ 3 }>
+        Описание:
+        <FormInputContainer>
+          <Textarea
+            onChange={ handleChange }
+            value={ values.description }
+            onBlur={ handleBlur }
+            name='description'
+            id='description'
+          />
+          { touched.description && errors.description && <FormError>{ errors.description }</FormError> }
+        </FormInputContainer>
+      </FormLabel>
       <Button type='submit' mt={ 3 } disabled={ isSubmitting }>
         Добавить
       </Button>

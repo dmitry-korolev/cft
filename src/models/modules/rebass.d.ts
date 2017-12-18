@@ -1,5 +1,6 @@
 declare module 'rebass' {
   import { ComponentType, HTMLProps, StatelessComponent } from 'react'
+  import { StyledComponentClass } from 'styled-components'
 
   type A<T> = T | T[]
   type Any = A<string | number | boolean>
@@ -7,6 +8,19 @@ declare module 'rebass' {
   type N = A<number>
   type B = A<boolean>
   type SN = A<string | number | null>
+
+  interface Theme {
+    breakpoints?: number[]
+    space?: number[]
+    fontSizes?: number[]
+    weights?: number[]
+    colors?: {
+      [K: string]: string
+    }
+    radius?: number
+    font?: string
+    monospace?: string
+  }
 
   interface Styled {
     width: SN
@@ -40,7 +54,7 @@ declare module 'rebass' {
     to: string
   }
 
-  type SC<T> = StatelessComponent<Partial<T & Styled>>
+  type SC<T> = StyledComponentClass<Partial<T & Styled>, Theme>
 
   export const Flex: SC<{
     align: S
@@ -86,10 +100,12 @@ declare module 'rebass' {
     caps: boolean
   }>
 
+  export const Label: SC<HTMLProps<HTMLLabelElement>>
   export const Input: SC<HTMLProps<HTMLInputElement>>
   export const Select: SC<HTMLProps<HTMLSelectElement>>
   export const Textarea: SC<HTMLProps<HTMLTextAreaElement>>
 
+  export const Truncate: SC<{}>
   export const Card: SC<{}>
   export const Small: SC<{}>
   export const Toolbar: SC<{}>
@@ -103,17 +119,6 @@ declare module 'rebass' {
   export const Subhead: SC<HTMLProps<HTMLHeadingElement>>
 
   export const Provider: StatelessComponent<{
-    theme?: {
-      breakpoints?: number[]
-      space?: number[]
-      fontSizes?: number[]
-      weights?: number[]
-      colors?: {
-        [K: string]: string
-      }
-      radius?: number
-      font?: string
-      monospace?: string
-    }
+    theme?: Theme
   }>
 }
