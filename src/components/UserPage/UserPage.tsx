@@ -25,6 +25,8 @@ export const UserPage = enhance((props) => {
         <Image mr={ 3 } width={ 64 } height={ 64 } src={ props.avatarUrl } />
         <Heading>{ props.name }</Heading>
       </Media>
+      <Text mt={ 3 }>Email: { props.email }</Text>
+      <Text mt={ 3 }>Номер телефона: { props.phone }</Text>
       <Text mt={ 3 }>Пол: { props.gender === 'female' ? '♀' : '♂' }</Text>
       <Text mt={ 3 }>
         <Link to={ `/users/${props._id}/edit` }>Редактировать</Link>

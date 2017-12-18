@@ -13,7 +13,6 @@ const generateUsers = (count, botIds) => {
       avatarUrl: data.picture.medium,
       location: data.location,
       email: data.email,
-      username: data.login.username,
       dob: data.dob,
       phone: data.phone,
       botIds: randA(botIds)

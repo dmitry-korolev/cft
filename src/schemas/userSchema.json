@@ -15,9 +15,6 @@
         "avatarUrl": {
             "type": "string"
         },
-        "username": {
-            "type": "string"
-        },
         "dob": {
             "type": "string"
         },
@@ -44,18 +41,7 @@
                 },
                 "postcode": true
             }
-        },
-        "level": {
-            "enum": [
-                0,
-                50
-            ],
-            "type": "integer"
         }
     },
-    "required": [
-        "username",
-        "email"
-    ],
     "type": "object"
 }

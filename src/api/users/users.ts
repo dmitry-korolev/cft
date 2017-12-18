@@ -8,7 +8,7 @@ import { dbPath } from 'api/utils/dbPath'
 import { mimicApiHook } from 'api/utils/mimicApiHook'
 
 // Models
-import { UserDataFull, UserLevel } from 'api/users/users.h'
+import { UserDataFull } from 'api/users/users.h'
 
 export const usersServiceName = 'users'
 
@@ -21,19 +21,11 @@ const db: NeDB = new NeDB({
 class UsersService extends BaseService<UserDataFull> {
   before = {
     find: search({
-      fields: ['name', 'username', 'location'],
+      fields: ['name'],
       deep: true
     })
   }
   after = mimicApiHook()
-
-  async create (data: UserDataFull, params: any) {
-    if (!data.level) {
-      data.level = UserLevel.USER
-    }
-
-    return super.create(data, params)
-  }
 }
 
 export const usersService = (): any =>

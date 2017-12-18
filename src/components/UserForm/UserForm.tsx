@@ -19,11 +19,9 @@ const enhance = withFormik<UserFormOwnProps, UserFormValues>({
         postcode: ''
       },
       email: '',
-      username: '',
       dob: '',
       phone: '',
       avatarUrl: '',
-      level: 0,
       botIds: []
     },
 
@@ -34,6 +32,9 @@ const enhance = withFormik<UserFormOwnProps, UserFormValues>({
     }
     if (!values.avatarUrl) {
       errors.avatarUrl = 'Пожалуйста, укажите ссылку на изображение.'
+    }
+    if (!values.email) {
+      errors.email = 'Пожалуйста, укажите email.'
     }
     return errors
   },
@@ -81,6 +82,36 @@ export const UserForm = enhance((props) => {
         </FormInputContainer>
       </FormLabel>
       <FormLabel mt={ 3 }>
+        Email:
+        <FormInputContainer>
+          <Input
+            onChange={ handleChange }
+            value={ values.email }
+            onBlur={ handleBlur }
+            name='email'
+            id='email'
+            placeholder='Ссылка на изображение'
+            w={ 400 }
+          />
+          { touched.email && errors.email && <FormError>{ errors.email }</FormError> }
+        </FormInputContainer>
+      </FormLabel>
+      <FormLabel mt={ 3 }>
+        Номер телефона:
+        <FormInputContainer>
+          <Input
+            onChange={ handleChange }
+            value={ values.phone }
+            onBlur={ handleBlur }
+            name='phone'
+            id='phone'
+            placeholder='Ссылка на изображение'
+            w={ 400 }
+          />
+          { touched.phone && errors.phone && <FormError>{ errors.phone }</FormError> }
+        </FormInputContainer>
+      </FormLabel>
+      <FormLabel mt={ 3 }>
         Пол:
         <FormInputContainer>
           <Label>
@@ -105,7 +136,6 @@ export const UserForm = enhance((props) => {
             />
             Женский
           </Label>
-          { touched.avatarUrl && errors.avatarUrl && <FormError>{ errors.avatarUrl }</FormError> }
         </FormInputContainer>
       </FormLabel>
       <Button type='submit' mt={ 3 } disabled={ isSubmitting }>
