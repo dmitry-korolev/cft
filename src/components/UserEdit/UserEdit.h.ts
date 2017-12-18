@@ -1,5 +1,5 @@
 // Actions
-import { updateUser } from 'store/users/actions'
+import { loadUser, updateUser } from 'store/users/actions'
 
 // Models
 import { UserDataFull } from 'api/users/users.h'
@@ -8,10 +8,13 @@ import { RouteComponentProps } from 'react-router'
 
 export interface UserEditDispatchProps {
   updateUser: typeof updateUser
+  loadUser: typeof loadUser
 }
 
 interface UserEditStateProps {
   user?: UserDataFull
+  userId: string
+  isLoading?: boolean
 }
 
 export type UserEditProps = UserEditDispatchProps &

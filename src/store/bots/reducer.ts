@@ -17,7 +17,7 @@ import { createReducer } from 'redux-act'
 
 // Models
 import { BotData, BotDataFull } from 'api/bots/bots.h'
-import { ApiResponce } from 'models/api/responce'
+import { AdiResponse } from 'models/api/responce'
 import { BotsState } from 'store/bots/reducer.h'
 
 const initialState = {
@@ -41,7 +41,7 @@ export const botsReducer = createReducer<BotsState>(
         currentPageUrl: state.previousPageUrl!,
         isLoading: true
       }),
-    [loadBotsSuccess.getType()]: (state, payload: ApiResponce<BotDataFull>) => ({
+    [loadBotsSuccess.getType()]: (state, payload: AdiResponse<BotDataFull>) => ({
       bots: payload.result,
       currentPageUrl: state.currentPageUrl,
       nextPageUrl: payload.nextPageUrl || state.nextPageUrl,

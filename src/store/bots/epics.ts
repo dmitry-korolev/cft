@@ -19,7 +19,7 @@ import {
 // Models
 import { BotData, BotDataFull } from 'api/bots/bots.h'
 import { FormikBag } from 'formik'
-import { ApiResponce } from 'models/api/responce'
+import { AdiResponse } from 'models/api/responce'
 import { Action } from 'redux-act'
 import { Epic } from 'store/store.h'
 
@@ -30,7 +30,7 @@ const reloadCurrentBots: Epic = (action$, store) =>
         async (result) => result.json()
       )
     )
-      .map((result: ApiResponce<BotData>) => loadBotsSuccess(result))
+      .map((result: AdiResponse<BotData>) => loadBotsSuccess(result))
       .recoverWith((error) => of(loadBotsFail(error)))
   })
 
@@ -44,7 +44,7 @@ const loadNextBotsEpic: Epic = (action$, store) =>
           async (result) => result.json()
         )
       )
-        .map((result: ApiResponce<BotData>) => loadBotsSuccess(result))
+        .map((result: AdiResponse<BotData>) => loadBotsSuccess(result))
         .recoverWith((error) => of(loadBotsFail(error)))
     })
 
@@ -58,7 +58,7 @@ const loadPrevBotsEpic: Epic = (action$, store) =>
           async (result) => result.json()
         )
       )
-        .map((result: ApiResponce<BotData>) => loadBotsSuccess(result))
+        .map((result: AdiResponse<BotData>) => loadBotsSuccess(result))
         .recoverWith((error) => of(loadBotsFail(error)))
     })
 

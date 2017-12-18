@@ -2,14 +2,15 @@ import { merge } from 'ramda'
 
 // Actions
 import {
+  loadUser,
   loadUsersFail,
   loadUsersNextPage,
   loadUsersPrevPage,
   loadUsersSuccess,
+  loadUserSuccess,
   reloadUsersCurrentPage,
   saveUser,
-  updateUser,
-  UpdateUserMeta
+  updateUser
 } from 'store/users/actions'
 
 // Utils
@@ -17,7 +18,8 @@ import { createReducer } from 'redux-act'
 
 // Models
 import { UserData, UserDataFull } from 'api/users/users.h'
-import { ApiResponce } from 'models/api/responce'
+import { AdiResponse } from 'models/api/responce'
+import { UpdateUserMeta } from 'store/users/actions.h'
 import { UsersState } from 'store/users/reducer.h'
 
 const initialState = {
@@ -41,7 +43,7 @@ export const usersReducer = createReducer<UsersState>(
         currentPageUrl: state.previousPageUrl!,
         isLoading: true
       }),
-    [loadUsersSuccess.getType()]: (state, payload: ApiResponce<UserDataFull>) => ({
+    [loadUsersSuccess.getType()]: (state, payload: AdiResponse<UserDataFull>) => ({
       users: payload.result,
       currentPageUrl: state.currentPageUrl,
       nextPageUrl: payload.nextPageUrl,
@@ -69,6 +71,15 @@ export const usersReducer = createReducer<UsersState>(
           return user
         }),
         isLoading: true
+      }),
+    [loadUser.getType()]: (state) =>
+      merge(state, {
+        isLoading: true
+      }),
+    [loadUserSuccess.getType()]: (state, payload: UserData) =>
+      merge(state, {
+        users: [payload, ...state.users],
+        isLoading: false
       })
   },
   initialState

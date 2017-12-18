@@ -7,22 +7,24 @@ import { combineEpics, select } from 'redux-most'
 
 // Actions
 import {
+  loadUser,
   loadUsersFail,
   loadUsersNextPage,
   loadUsersPrevPage,
   loadUsersSuccess,
+  loadUserSuccess,
   reloadUsersCurrentPage,
   saveUser,
-  updateUser,
-  UpdateUserMeta
+  updateUser
 } from 'store/users/actions'
 
 // Models
 import { UserData, UserDataFull } from 'api/users/users.h'
 import { FormikBag } from 'formik'
-import { ApiResponce } from 'models/api/responce'
+import { AdiResponse } from 'models/api/responce'
 import { Action } from 'redux-act'
 import { Epic } from 'store/store.h'
+import { UpdateUserMeta } from 'store/users/actions.h'
 
 const reloadCurrentUsers: Epic = (action$, store) =>
   action$.thru(select(reloadUsersCurrentPage.getType())).chain(() => {
@@ -31,7 +33,7 @@ const reloadCurrentUsers: Epic = (action$, store) =>
         async (result) => result.json()
       )
     )
-      .map((result: ApiResponce<UserData>) => loadUsersSuccess(result))
+      .map((result: AdiResponse<UserData>) => loadUsersSuccess(result))
       .recoverWith((error) => of(loadUsersFail(error)))
   })
 
@@ -45,7 +47,7 @@ const loadNextUsersEpic: Epic = (action$, store) =>
           async (result) => result.json()
         )
       )
-        .map((result: ApiResponce<UserData>) => loadUsersSuccess(result))
+        .map((result: AdiResponse<UserData>) => loadUsersSuccess(result))
         .recoverWith((error) => of(loadUsersFail(error)))
     })
 
@@ -59,7 +61,7 @@ const loadPrevUsersEpic: Epic = (action$, store) =>
           async (result) => result.json()
         )
       )
-        .map((result: ApiResponce<UserData>) => loadUsersSuccess(result))
+        .map((result: AdiResponse<UserData>) => loadUsersSuccess(result))
         .recoverWith((error) => of(loadUsersFail(error)))
     })
 
@@ -115,11 +117,21 @@ const updateUserEpic: Epic = (action$) =>
         })
     })
 
+const loadUserEpic: Epic = (action$) =>
+  action$.thru(select(loadUser.getType())).chain(({ payload }) => {
+    return fromPromise(
+      fetch(`${apiEndpoint(usersServiceName)}/${payload}`).then(async (result) => result.json())
+    )
+      .map((result: { result: UserData }) => loadUserSuccess(result.result))
+      .recoverWith((error) => of(loadUsersFail(error)))
+  })
+
 // В общем, для TS redux-most в продакшн пока не катит, тайпинги отбитые просто
 export const usersEpic = combineEpics([
   reloadCurrentUsers as any,
   loadNextUsersEpic as any,
   loadPrevUsersEpic as any,
+  loadUserEpic as any,
   saveUserEpic as any,
   updateUserEpic as any
 ])

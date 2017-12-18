@@ -2,12 +2,12 @@ import { FormikBag } from 'formik'
 import { createAction } from 'redux-act'
 
 import { BotData, BotDataFull } from 'api/bots/bots.h'
-import { ApiResponce } from 'models/api/responce'
+import { AdiResponse } from 'models/api/responce'
 
 export const reloadBotsCurrentPage = createAction('Reload current page')
 export const loadBotsNextPage = createAction('LOAD MOAR BOTS PLS')
 export const loadBotsPrevPage = createAction('Load previous portion of bots list')
-export const loadBotsSuccess = createAction<ApiResponce<BotData>>('Bots loaded')
+export const loadBotsSuccess = createAction<AdiResponse<BotData>>('Bots loaded')
 export const loadBotsFail = createAction<any>('Bots loading failed')
 export const saveBot = createAction<BotData, FormikBag<{}, BotData>>(
   'Save new bot',
