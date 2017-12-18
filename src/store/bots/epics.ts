@@ -26,7 +26,7 @@ import { Epic } from 'store/store.h'
 const reloadCurrentBots: Epic = (action$, store) =>
   action$.thru(select(reloadBotsCurrentPage.getType())).chain(() => {
     return fromPromise(
-      fetch(`${apiEndpoint(botsServiceName)}/${store.getState().bots.currentPageUrl}`).then(
+      fetch(`${apiEndpoint(botsServiceName)}/?${store.getState().bots.currentPageUrl}`).then(
         async (result) => result.json()
       )
     )

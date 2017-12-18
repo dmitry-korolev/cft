@@ -3,7 +3,7 @@ import { Unprocessable } from 'feathers-errors'
 import { Service, ServiceOptions } from 'feathers-nedb'
 
 // Utils
-// import { isPaginated } from 'api/utils/isPaginated'
+import { omitBaseData } from 'api/utils/omitBaseData'
 import { assocPath, lens, merge, path, set, T, view } from 'ramda'
 
 // Models
@@ -76,7 +76,7 @@ export class BaseService<Type extends BaseData> extends Service<Type> {
 
   async update (id: string, data: Partial<Type>, params?: Params) {
     const entity = await super.get(id, params)
-    const newData = merge(entity, data)
+    const newData = omitBaseData(merge(entity, data))
     const valid = this.validator(newData)
 
     if (!valid) {

@@ -2,13 +2,14 @@ import { withFormik } from 'formik'
 import React from 'react'
 
 // Components
+import { omitBaseData } from 'api/utils/omitBaseData'
 import { FormError, FormInputContainer, FormLabel } from 'components/Form/Form.s'
 import { UserFormErrors, UserFormOwnProps, UserFormValues } from 'components/UserForm/UserForm.h'
 import { Button, Input } from 'rebass'
 
 const enhance = withFormik<UserFormOwnProps, UserFormValues>({
   mapPropsToValues: (props) =>
-    props.initialValues || {
+    omitBaseData(props.initialValues) || {
       gender: '',
       name: '',
       location: {
