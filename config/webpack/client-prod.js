@@ -5,6 +5,7 @@ const webpack = require('webpack')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin
+// const Analyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const config = {
   // Enable sourcemaps for debugging webpack's output.
@@ -52,6 +53,7 @@ const config = {
   },
 
   plugins: [
+    // new Analyzer(),
     new UglifyJsPlugin(),
     new CheckerPlugin(),
     new webpack.LoaderOptionsPlugin({
