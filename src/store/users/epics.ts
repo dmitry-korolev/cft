@@ -122,7 +122,7 @@ const loadUserEpic: Epic = (action$) =>
     return fromPromise(
       fetch(`${apiEndpoint(usersServiceName)}/${payload}`).then(async (result) => result.json())
     )
-      .map((result: { result: UserData; code: number }) => {
+      .map((result: { result: UserDataFull; code: number }) => {
         if (result.code === 404) {
           return loadUsersFail(result)
         }
