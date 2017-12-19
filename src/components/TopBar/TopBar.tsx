@@ -1,6 +1,5 @@
 import React from 'react'
 import { generateRandomData } from 'utils/generateRandomData'
-import { dispatchWillMount } from 'utils/hoc/dispatchWillMount/dispatchWillMount'
 
 // Actions
 import { reloadBotsCurrentPage } from 'store/bots/actions'
