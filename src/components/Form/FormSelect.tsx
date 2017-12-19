@@ -1,9 +1,11 @@
 import { compose, filter, map } from 'ramda'
 import React, { SyntheticEvent } from 'react'
 
-import { FormSelectProps } from 'components/Form/FormSelect.h'
-
 // Components
+import { FormSelectContainer } from 'components/Form/FormSelect.s'
+
+// Models
+import { FormSelectProps } from 'components/Form/FormSelect.h'
 
 const collectValues = compose<any, any, string[]>(
   map((option: any) => option.value),
@@ -16,14 +18,16 @@ export const FormSelect = (props: FormSelectProps<any>) => {
     setFieldValue(name, collectValues(event.currentTarget.options))
   }
   return (
-    <select name={ name } onChange={ handleChange } defaultValue={ values } { ...otherProps }>
-      { options.map((option) => {
-        return (
-          <option key={ option.value } value={ option.value }>
-            { option.label || option.value }
-          </option>
-        )
-      }) }
-    </select>
+    <FormSelectContainer>
+      <select name={ name } onChange={ handleChange } defaultValue={ values } { ...otherProps }>
+        { options.map((option) => {
+          return (
+            <option key={ option.value } value={ option.value }>
+              { option.label || option.value }
+            </option>
+          )
+        }) }
+      </select>
+    </FormSelectContainer>
   )
 }
