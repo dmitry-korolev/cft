@@ -1,11 +1,13 @@
 ```js
-const generateUsers = (count, botIds) => {
-  const rand = (min, max) => Math.floor(min + Math.random() * (max + 1 - min))
-  const randA = (a) => {
-    const r = Array(rand(1, a.length)).fill(0)
-    return [...new Set(r.map(() => a[Math.floor(Math.random() * a.length)]))]
-  }
+const rand = (min, max) => Math.floor(min + Math.random() * (max + 1 - min))
+const randomFromArray = (a) => {
+  const r = Array(rand(1, a.length)).fill(0)
+  return [...new Set(r.map(() => a[Math.floor(Math.random() * a.length)]))]
+}
   
+
+const generateBots
+const generateUsers = (count, botIds) => {
   const postUser = (data) => {
     const d = {
       gender: data.gender,
@@ -26,7 +28,7 @@ const generateUsers = (count, botIds) => {
       }
     })
     .then(r => r.json())
-     .then(console.log)
+    .then(console.log)
   }
   
   fetch(`https://randomuser.me/api/?nat=us,dk,fr,gb&results=${count}`)

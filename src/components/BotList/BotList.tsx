@@ -33,8 +33,8 @@ const enhance = compose<BotListProps, {}>(
 
 export const BotList = enhance((props) => (
   <Flex wrap>
-    <Box w={ '100%' } mt={ 3 }>
-      <AddListItem title='Добавить бота' link={ '/bots/add' } />
+    <Box w={ '100%' }>
+      <AddListItem title='Добавить' link={ '/bots/add' } />
     </Box>
     { props.bots.map((bot) => {
       return (

@@ -39,8 +39,8 @@ const enhance = compose<UserListProps, {}>(
 
 export const UserList = enhance((props) => (
   <Flex wrap>
-    <Box w={ '100%' } mt={ 3 }>
-      <AddListItem title='Добавить пользователя' link={ '/users/add' } />
+    <Box w={ '100%' }>
+      <AddListItem title='Добавить' link={ '/users/add' } />
     </Box>
     { props.users.map((user) => {
       return (

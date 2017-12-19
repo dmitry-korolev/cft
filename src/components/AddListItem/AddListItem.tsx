@@ -5,7 +5,7 @@ import { setDisplayName } from 'recompose'
 
 // Components
 import { Add } from 'grommet-icons'
-import { Box, ButtonTransparent, Media, Subhead } from 'rebass'
+import { Box, Media, NavLink, Subhead } from 'rebass'
 
 // Models
 import { AddListItemProps } from 'components/AddListItem/AddListItem.h'
@@ -14,7 +14,7 @@ const enhance = setDisplayName<AddListItemProps>('AddListItem')
 
 export const AddListItem = enhance((props) => {
   return (
-    <ButtonTransparent to={ props.link } is={ Link } w={ '100%' } p={ 0 } py={ 2 }>
+    <NavLink to={ props.link } is={ Link } w={ '100%' } p={ 3 } py={ 3 }>
       <Media>
         <Box mr={ 3 } w={ 64 }>
           <Add />
@@ -23,6 +23,6 @@ export const AddListItem = enhance((props) => {
           <Subhead>{ props.title }</Subhead>
         </Box>
       </Media>
-    </ButtonTransparent>
+    </NavLink>
   )
 })

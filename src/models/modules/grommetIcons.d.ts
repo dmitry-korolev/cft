@@ -1,5 +1,5 @@
 declare module 'grommet-icons' {
-  import { StatelessComponent } from 'react'
+  import { HTMLProps, StatelessComponent } from 'react'
   type Icon = StatelessComponent<{
     size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'huge'
   }>
@@ -9,5 +9,7 @@ declare module 'grommet-icons' {
   export const FormNextLink: Icon
   export const FormPreviousLink: Icon
   export const Robot: Icon
+  export const SettingsOption: Icon
+  export const StatusGood: Icon
   export const User: Icon
 }

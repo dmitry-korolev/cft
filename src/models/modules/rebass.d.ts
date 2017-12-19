@@ -81,10 +81,12 @@ declare module 'rebass' {
     src: string
   }>
 
-  export const NavLink: SC<{
-    href?: string
-    to?: string
-  }>
+  export const NavLink: SC<
+    {
+      href?: string
+      to?: string
+    } & HTMLProps<HTMLAnchorElement>
+  >
 
   export const Link: SC<
     {
@@ -101,12 +103,26 @@ declare module 'rebass' {
     caps: boolean
   }>
 
+  export const Tooltip: SC<{
+    text: string
+  }>
+
   export const Label: SC<HTMLProps<HTMLLabelElement>>
   export const Input: SC<HTMLProps<HTMLInputElement>>
   export const Select: SC<HTMLProps<HTMLSelectElement>>
   export const Textarea: SC<HTMLProps<HTMLTextAreaElement>>
   export const Radio: SC<HTMLProps<HTMLInputElement>>
 
+  export const Fixed: SC<
+    {
+      top: boolean
+      bottom: boolean
+      left: boolean
+      right: boolean
+    } & HTMLProps<HTMLDivElement>
+  >
+
+  export const Overlay: SC<{}>
   export const Truncate: SC<{}>
   export const Card: SC<{}>
   export const Small: SC<{}>
@@ -119,6 +135,12 @@ declare module 'rebass' {
   export const Button: SC<HTMLProps<HTMLButtonElement>>
   export const ButtonTransparent: SC<HTMLProps<HTMLButtonElement>>
   export const Subhead: SC<HTMLProps<HTMLHeadingElement>>
+
+  export const Banner: SC<
+    HTMLProps<HTMLDivElement> & {
+      backgroundImage: string
+    }
+  >
 
   export const Provider: StatelessComponent<{
     theme?: Theme
