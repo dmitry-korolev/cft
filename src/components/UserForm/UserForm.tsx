@@ -50,6 +50,9 @@ const addFormik = withFormik<UserFormOwnProps, UserFormValues>({
     if (!values.email) {
       errors.email = 'Пожалуйста, укажите email.'
     }
+    if (!values.phone) {
+      errors.phone = 'Пожалуйста, укажите номер телефона.'
+    }
     return errors
   },
 
@@ -117,7 +120,7 @@ export const UserForm = enhance((props) => {
             onBlur={ handleBlur }
             name='email'
             id='email'
-            placeholder='Ссылка на изображение'
+            placeholder='Email'
           />
           { touched.email && errors.email && <FormError>{ errors.email }</FormError> }
         </FormInputContainer>
@@ -131,13 +134,13 @@ export const UserForm = enhance((props) => {
             onBlur={ handleBlur }
             name='phone'
             id='phone'
-            placeholder='Ссылка на изображение'
+            placeholder='Номер телефона'
           />
           { touched.phone && errors.phone && <FormError>{ errors.phone }</FormError> }
         </FormInputContainer>
       </FormLabel>
       <FormLabel mt={ 3 }>
-        Номер телефона:
+        Боты пользователя:
         <FormInputContainer>
           <FormSelect
             multiple
@@ -151,7 +154,6 @@ export const UserForm = enhance((props) => {
               label: bot.title
             })) }
           />
-          { touched.phone && errors.phone && <FormError>{ errors.phone }</FormError> }
         </FormInputContainer>
       </FormLabel>
       <FormLabel mt={ 3 }>
