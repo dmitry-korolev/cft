@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import Helmet from 'react-helmet'
 
 export const Html = (props: HtmlProps) => {
-  const { manifest, styleTags } = props
+  const { manifest, styleTags, markup } = props
   const head = Helmet.rewind()
   const renderScripts = <script src={ `/public/${manifest['app.js']}` } />
 
@@ -16,10 +16,15 @@ export const Html = (props: HtmlProps) => {
         { head.script.toComponent() }
         <link rel='preconnect' href='https://fonts.gstatic.com/' crossOrigin='use-credentials' />
         <link rel='shortcut icon' href='/favicon.ico' />
-        { false && styleTags }
+        { styleTags }
       </head>
       <body>
-        <main id='app' />
+        <main
+          id='app'
+          dangerouslySetInnerHTML={ {
+            __html: markup
+          } }
+        />
         { renderScripts }
       </body>
     </html>

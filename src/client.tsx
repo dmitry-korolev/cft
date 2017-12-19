@@ -16,7 +16,7 @@ import { configureStore } from 'store/store'
 
 const store = configureStore()
 
-ReactDOM.render(
+ReactDOM.hydrate(
   <BrowserRouter>
     <Provider store={ store }>
       <App />
