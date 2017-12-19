@@ -26,7 +26,7 @@ export const BotPage = enhance((props) => {
         <Heading>{ props.title }</Heading>
       </Media>
       <Text mt={ 3 }>{ props.description }</Text>
-      <Text>
+      <Text mt={ 3 }>
         <Link to={ `/bots/${props._id}/edit` }>Редактировать</Link>
       </Text>
     </div>
