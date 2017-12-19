@@ -3,6 +3,7 @@ const path = require('path')
 // Webpack
 const webpack = require('webpack')
 const ManifestPlugin = require('webpack-manifest-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin
 
 const config = {
@@ -15,10 +16,7 @@ const config = {
   },
 
   entry: {
-    app: [
-      'webpack-hot-middleware/client?reload=true',
-      './src/client.tsx'
-    ]
+    app: './src/client.tsx'
   },
 
   output: {
@@ -33,7 +31,6 @@ const config = {
       {
         test: /\.tsx?$/,
         loaders: [
-          'react-hot-loader/webpack',
           'babel-loader',
           'awesome-typescript-loader'
         ],
@@ -55,9 +52,10 @@ const config = {
   },
 
   plugins: [
+    new UglifyJsPlugin(),
     new CheckerPlugin(),
     new webpack.LoaderOptionsPlugin({
-      debug: true
+      debug: false
     }),
     new ManifestPlugin({
       fileName: '../manifest.json'
@@ -65,10 +63,10 @@ const config = {
     new webpack.DefinePlugin({
       'process.env': {
         BROWSER: JSON.stringify(true),
-        NODE_ENV: JSON.stringify('development')
+        NODE_ENV: JSON.stringify('production')
       }
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.NoEmitOnErrorsPlugin()
   ]
 }
 
