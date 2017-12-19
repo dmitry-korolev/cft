@@ -1,5 +1,6 @@
 import React from 'react'
 import { generateRandomData } from 'utils/generateRandomData'
+import { dispatchWillMount } from 'utils/hoc/dispatchWillMount/dispatchWillMount'
 
 // Actions
 import { reloadBotsCurrentPage } from 'store/bots/actions'
@@ -7,6 +8,7 @@ import { reloadUsersCurrentPage } from 'store/users/actions'
 
 // Components
 import { Loader } from 'components/Loader/Loader'
+import { TopBarOverlayContainer } from 'components/TopBar/TopBar.s'
 import { StatusGood } from 'grommet-icons'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -32,6 +34,7 @@ const enhance = compose<TopBarProps, {}>(
       reloadUsersCurrentPage
     }
   ),
+  dispatchWillMount([reloadBotsCurrentPage(), reloadUsersCurrentPage()]),
   withStateHandlers(
     {
       showOverlay: false,
@@ -55,6 +58,9 @@ const enhance = compose<TopBarProps, {}>(
       props.changeLoadingState(LoadingState.FINISHED)
       props.reloadBotsCurrentPage()
       props.reloadUsersCurrentPage()
+      setTimeout(() => {
+        props.showOverlay && props.toggleOverlay()
+      }, 5000)
     }
   }),
   setDisplayName('TopBar')
@@ -72,7 +78,7 @@ export const TopBar = enhance((props) => {
         </NavLink>
       ) }
       { props.showOverlay && (
-        <div>
+        <TopBarOverlayContainer>
           <Fixed top right bottom left onClick={ props.toggleOverlay } />
           <Overlay w={ 256 }>
             { props.loadingState === LoadingState.NOT_STARTED &&
@@ -90,7 +96,7 @@ export const TopBar = enhance((props) => {
               </Text>
             ) }
           </Overlay>
-        </div>
+        </TopBarOverlayContainer>
       ) }
     </Toolbar>
   )

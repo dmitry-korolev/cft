@@ -4,7 +4,7 @@ import { usersServiceName } from 'api/users/users'
 import { apiEndpoint } from 'api/utils/apiEndpoint'
 import { times, uniq } from 'ramda'
 
-const randImage = 'https://picsum.photos/200/200/?image='
+const randImage = 'https://picsum.photos/200/200/?random'
 const randText = 'https://baconipsum.com/api/?type=all-meat&paras=2'
 const randUsers = 'https://randomuser.me/api/?nat=us,dk,fr,gb&results=200'
 
@@ -15,13 +15,11 @@ const ramdomElements = (array: any[]) => {
 }
 
 const generateRandomBots = async () => {
-  const randM = rand(1, 200)
-
   for (let i = 0; i < 5; i += 1) {
     const text = await fetch(randText).then(async (r) => r.json())
     const data = {
       title: text[0].split(' ')[0],
-      picture: randImage + (i + 1) * randM,
+      picture: randImage,
       description: text[1]
     }
 

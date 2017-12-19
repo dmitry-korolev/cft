@@ -1,11 +1,5 @@
 import React from 'react'
-import { compose, setDisplayName } from 'recompose'
 import { injectGlobal } from 'styled-components'
-import { dispatchWillMount } from 'utils/hoc/dispatchWillMount/dispatchWillMount'
-
-// Actions
-import { reloadBotsCurrentPage } from 'store/bots/actions'
-import { reloadUsersCurrentPage } from 'store/users/actions'
 
 // Components
 import { Bot } from 'components/Bot/Bot'
@@ -34,12 +28,7 @@ const theme = {
   font: 'Roboto, sans-serif'
 }
 
-const enhance = compose(
-  dispatchWillMount([reloadBotsCurrentPage(), reloadUsersCurrentPage()]),
-  setDisplayName('App')
-)
-
-export const App = enhance(() => (
+export const App = () => (
   <Provider theme={ theme }>
     <Container maxWidth={ 1280 }>
       <TopBar />
@@ -63,4 +52,4 @@ export const App = enhance(() => (
       </Flex>
     </Container>
   </Provider>
-))
+)
