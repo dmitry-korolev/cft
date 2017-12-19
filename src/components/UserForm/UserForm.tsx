@@ -1,13 +1,33 @@
+// Utils
+import { omitBaseData } from 'api/utils/omitBaseData'
 import { withFormik } from 'formik'
 import React from 'react'
+import { connect } from 'react-redux'
+import { compose } from 'recompose'
+import { dispatchWillMount } from 'utils/hoc/dispatchWillMount/dispatchWillMount'
+
+// Actions
+import { reloadBotsCurrentPage } from 'store/bots/actions'
 
 // Components
-import { omitBaseData } from 'api/utils/omitBaseData'
 import { FormError, FormInputContainer, FormLabel } from 'components/Form/Form.s'
-import { UserFormErrors, UserFormOwnProps, UserFormValues } from 'components/UserForm/UserForm.h'
+import { FormSelect } from 'components/Form/FormSelect'
 import { Button, Input, Label, Radio } from 'rebass'
 
-const enhance = withFormik<UserFormOwnProps, UserFormValues>({
+// Models
+import {
+  UserFormErrors,
+  UserFormOwnProps,
+  UserFormProps,
+  UserFormStateProps,
+  UserFormValues
+} from 'components/UserForm/UserForm.h'
+import { State } from 'store/store.h'
+
+const connectToState = connect<UserFormStateProps, {}, UserFormOwnProps, State>((state) => ({
+  bots: state.bots.bots
+}))
+const addFormik = withFormik<UserFormOwnProps, UserFormValues>({
   mapPropsToValues: (props) =>
     omitBaseData(props.initialValues) || {
       gender: null,
@@ -39,9 +59,24 @@ const enhance = withFormik<UserFormOwnProps, UserFormValues>({
 
   displayName: 'UserForm'
 })
+const enhance = compose<UserFormProps, UserFormOwnProps>(
+  connectToState,
+  dispatchWillMount([reloadBotsCurrentPage()]),
+  addFormik
+)
 
 export const UserForm = enhance((props) => {
-  const { handleChange, handleBlur, handleSubmit, values, isSubmitting, touched, errors } = props
+  const {
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    values,
+    isSubmitting,
+    touched,
+    errors,
+    setFieldValue,
+    bots
+  } = props
 
   return (
     <form onSubmit={ handleSubmit }>
@@ -97,6 +132,24 @@ export const UserForm = enhance((props) => {
             name='phone'
             id='phone'
             placeholder='Ссылка на изображение'
+          />
+          { touched.phone && errors.phone && <FormError>{ errors.phone }</FormError> }
+        </FormInputContainer>
+      </FormLabel>
+      <FormLabel mt={ 3 }>
+        Номер телефона:
+        <FormInputContainer>
+          <FormSelect
+            multiple
+            name='botIds'
+            id='botIds'
+            values={ values.botIds }
+            setFieldValue={ setFieldValue }
+            onBlur={ handleBlur }
+            options={ bots.map((bot) => ({
+              value: bot._id,
+              label: bot.title
+            })) }
           />
           { touched.phone && errors.phone && <FormError>{ errors.phone }</FormError> }
         </FormInputContainer>

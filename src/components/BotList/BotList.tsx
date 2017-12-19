@@ -7,8 +7,7 @@ import { dispatchWillMount } from 'utils/hoc/dispatchWillMount/dispatchWillMount
 // Components
 import { AddListItem } from 'components/AddListItem/AddListItem'
 import { ListItem } from 'components/ListItem/ListItem'
-import { Link } from 'react-router-dom'
-import { Box, Flex, Text } from 'rebass'
+import { Box, Flex } from 'rebass'
 
 // Actions
 import { reloadBotsCurrentPage } from 'store/bots/actions'
