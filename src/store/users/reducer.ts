@@ -1,4 +1,4 @@
-import { merge } from 'ramda'
+import { merge, prop, uniqBy } from 'ramda'
 
 // Actions
 import {
@@ -76,9 +76,9 @@ export const usersReducer = createReducer<UsersState>(
       merge(state, {
         isLoading: true
       }),
-    [loadUserSuccess.getType()]: (state, payload: UserData) =>
+    [loadUserSuccess.getType()]: (state, payload: UserDataFull) =>
       merge(state, {
-        users: [payload, ...state.users],
+        users: uniqBy<UserDataFull, string>(prop('_id'), [payload, ...state.users]),
         isLoading: false
       })
   },
