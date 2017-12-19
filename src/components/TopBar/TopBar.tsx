@@ -58,9 +58,6 @@ const enhance = compose<TopBarProps, {}>(
       props.changeLoadingState(LoadingState.FINISHED)
       props.reloadBotsCurrentPage()
       props.reloadUsersCurrentPage()
-      setTimeout(() => {
-        props.showOverlay && props.toggleOverlay()
-      }, 5000)
     }
   }),
   setDisplayName('TopBar')

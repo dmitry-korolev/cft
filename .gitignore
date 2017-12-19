@@ -3,6 +3,7 @@
 
 # Build
 /build
+build.zip
 
 # Test db
 /db
