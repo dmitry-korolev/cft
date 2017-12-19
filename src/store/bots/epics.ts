@@ -7,9 +7,11 @@ import { combineEpics, select } from 'redux-most'
 
 // Actions
 import {
+  loadBot,
   loadBotsFail,
   loadBotsNextPage,
   loadBotsSuccess,
+  loadBotSuccess,
   reloadBotsCurrentPage,
   saveBot,
   updateBot,
@@ -114,11 +116,27 @@ const updateBotEpic: Epic = (action$) =>
         })
     })
 
+const loadBotEpic: Epic = (action$) =>
+  action$.thru(select(loadBot.getType())).chain(({ payload }) => {
+    return fromPromise(
+      fetch(`${apiEndpoint(botsServiceName)}/${payload}`).then(async (result) => result.json())
+    )
+      .map((result: { result: BotDataFull; code: number }) => {
+        if (result.code === 404) {
+          return loadBotsFail(result)
+        }
+
+        return loadBotSuccess(result.result)
+      })
+      .recoverWith((error) => of(loadBotsFail(error)))
+  })
+
 // В общем, для TS redux-most в продакшн пока не катит, тайпинги отбитые просто
 export const botsEpic = combineEpics([
   reloadCurrentBots as any,
   loadNextBotsEpic as any,
   loadPrevBotsEpic as any,
+  loadBotEpic as any,
   saveBotEpic as any,
   updateBotEpic as any
 ])

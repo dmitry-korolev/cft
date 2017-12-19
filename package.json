@@ -67,6 +67,7 @@
     "redux-act": "^1.5.1",
     "redux-logger": "^3.0.6",
     "redux-most": "^0.6.2",
+    "reselect": "^3.0.1",
     "styled-components": "^2.2.4",
     "tslib": "^1.8.1"
   },

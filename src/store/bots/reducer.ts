@@ -2,10 +2,12 @@ import { merge } from 'ramda'
 
 // Actions
 import {
+  loadBot,
   loadBotsFail,
   loadBotsNextPage,
   loadBotsPrevPage,
   loadBotsSuccess,
+  loadBotSuccess,
   reloadBotsCurrentPage,
   saveBot,
   updateBot,
@@ -69,6 +71,15 @@ export const botsReducer = createReducer<BotsState>(
           return bot
         }),
         isLoading: true
+      }),
+    [loadBot.getType()]: (state) =>
+      merge(state, {
+        isLoading: true
+      }),
+    [loadBotSuccess.getType()]: (state, payload: BotDataFull) =>
+      merge(state, {
+        bots: [payload, ...state.bots],
+        isLoading: false
       })
   },
   initialState

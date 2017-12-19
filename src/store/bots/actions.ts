@@ -9,6 +9,9 @@ export const loadBotsNextPage = createAction('LOAD MOAR BOTS PLS')
 export const loadBotsPrevPage = createAction('Load previous portion of bots list')
 export const loadBotsSuccess = createAction<AdiResponse<BotData>>('Bots loaded')
 export const loadBotsFail = createAction<any>('Bots loading failed')
+export const loadBot = createAction<string>('Load bot by id')
+export const loadBotSuccess = createAction<BotDataFull>('Bot loaded')
+
 export const saveBot = createAction<BotData, FormikBag<{}, BotData>>(
   'Save new bot',
   (values: BotData) => values,
