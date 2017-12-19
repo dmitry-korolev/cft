@@ -1,5 +1,11 @@
-import React, { StatelessComponent } from 'react'
+import React from 'react'
+import { compose, setDisplayName } from 'recompose'
 import { injectGlobal } from 'styled-components'
+import { dispatchWillMount } from 'utils/hoc/dispatchWillMount/dispatchWillMount'
+
+// Actions
+import { reloadBotsCurrentPage } from 'store/bots/actions'
+import { reloadUsersCurrentPage } from 'store/users/actions'
 
 // Components
 import { Bot } from 'components/Bot/Bot'
@@ -28,7 +34,12 @@ const theme = {
   font: 'Roboto, sans-serif'
 }
 
-export const App: StatelessComponent = () => (
+const enhance = compose(
+  dispatchWillMount([reloadBotsCurrentPage(), reloadUsersCurrentPage()]),
+  setDisplayName('App')
+)
+
+export const App = enhance(() => (
   <Provider theme={ theme }>
     <Container maxWidth={ 1280 }>
       <TopBar />
@@ -52,6 +63,4 @@ export const App: StatelessComponent = () => (
       </Flex>
     </Container>
   </Provider>
-)
-
-App.displayName = 'App'
+))

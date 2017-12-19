@@ -1,5 +1,6 @@
 import React from 'react'
 import { generateRandomData } from 'utils/generateRandomData'
+import { dispatchWillMount } from 'utils/hoc/dispatchWillMount/dispatchWillMount'
 
 // Actions
 import { reloadBotsCurrentPage } from 'store/bots/actions'
@@ -75,8 +76,6 @@ export const TopBar = enhance((props) => {
         <div>
           <Fixed top right bottom left onClick={ props.toggleOverlay } />
           <Overlay w={ 256 }>
-            { !props.shouldGenerate && <Text>Генерация не требуется.</Text> }
-
             { props.loadingState === LoadingState.NOT_STARTED &&
               props.shouldGenerate && (
                 <Button f={ 4 } onClick={ props.generateData }>
