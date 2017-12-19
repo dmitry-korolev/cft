@@ -19,6 +19,7 @@ const connectToState = connect(
   (state: State, ownProps: RouteComponentProps<NavigationProps>) => ({
     user: state.users.users.find((user) => user._id === ownProps.match.params.userId),
     userId: ownProps.match.params.userId,
+    error: state.users.error,
     isLoading: state.users.isLoading
   }),
   {
@@ -28,7 +29,7 @@ const connectToState = connect(
 )
 const loadUserOnMount = lifecycle<UserEditProps, {}>({
   componentWillUpdate (nextProps) {
-    if (!nextProps.user && !nextProps.isLoading) {
+    if (!nextProps.user && !nextProps.isLoading && !nextProps.error) {
       this.props.loadUser(this.props.userId)
     }
   }

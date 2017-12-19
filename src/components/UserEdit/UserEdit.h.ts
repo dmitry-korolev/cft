@@ -14,6 +14,7 @@ export interface UserEditDispatchProps {
 interface UserEditStateProps {
   user?: UserDataFull
   userId: string
+  error?: any
   isLoading?: boolean
 }
 

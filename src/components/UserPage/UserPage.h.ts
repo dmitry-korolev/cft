@@ -8,6 +8,7 @@ import { RouteComponentProps } from 'react-router'
 export type UserPageProps = RouteComponentProps<NavigationProps> & {
   user?: UserDataFull
   userId: string
+  error?: any
   isLoading?: boolean
 } & {
   loadUser: typeof loadUser
