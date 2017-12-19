@@ -8,12 +8,13 @@
 - и [многие-многие другие](package.json)
 
 # Запуск
-Локально
 ```shell
-npm install && npm run start
+npm run start
+npm run start:prod
 ```
 
-Прод-билд
+Сборка
 ```shell
-npm install && npm run build:prod
+npm run build
+npm run build:prod
 ```

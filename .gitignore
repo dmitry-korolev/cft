@@ -4,6 +4,9 @@
 # Build
 /build
 
+# Test db
+/db
+
 # Logs
 logs
 *.log
