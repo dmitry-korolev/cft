@@ -27,7 +27,7 @@ import { State } from 'store/store.h'
 const enhance = compose<TopBarProps, {}>(
   connect(
     (state: State) => ({
-      shouldGenerate: state.bots.bots.length < 5 && state.users.users.length < 200
+      shouldGenerate: state.bots.bots.length < 5 || state.users.users.length < 200
     }),
     {
       reloadBotsCurrentPage,
