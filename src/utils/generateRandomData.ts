@@ -9,7 +9,7 @@ const randText = 'https://baconipsum.com/api/?type=all-meat&paras=2'
 const randUsers = 'https://randomuser.me/api/?nat=us,dk,fr,gb&results=200'
 
 const rand = (min: number, max: number) => Math.floor(min + Math.random() * (max + 1 - min))
-const ramdomElements = (array: any[]) => {
+const randomElements = (array: any[]) => {
   const size = rand(1, array.length)
   return uniq(times(() => array[Math.floor(Math.random() * array.length)], size))
 }
@@ -42,7 +42,7 @@ const postUser = async (data: any, botIds: string[]) => {
     email: data.email,
     dob: data.dob,
     phone: data.phone,
-    botIds: ramdomElements(botIds)
+    botIds: randomElements(botIds)
   }
 
   return fetch(apiEndpoint(usersServiceName), {
@@ -61,8 +61,8 @@ const generateRandomUsers = async () => {
       .then(async (r) => r.json())
       .then((r) => r.result.map((b: any) => b._id)),
     fetch(randUsers)
-      .then((d: any) => d.json())
-      .then((r: any) => r.results)
+      .then(async (d) => d.json())
+      .then((r) => r.results)
   ])
 
   for (const user of usersData) {
